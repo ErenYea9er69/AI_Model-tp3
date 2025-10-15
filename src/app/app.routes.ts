@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 import { Produits } from './ai-models/ai-models';
 import { AddProduitComponent } from './add-ai-model/add-ai-model';
-import { UpdateProduit } from './update-produit/update-produit';
+import { UpdateProduit } from './update-ai-model/update-ai-model';
 
 
 export const routes: Routes = [
