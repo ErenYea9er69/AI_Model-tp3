@@ -1,67 +1,74 @@
 import { Injectable } from '@angular/core';
 import { AIModel } from '../model/ai.model';
+import { Categorie } from "../model/categorie.model";
+
 @Injectable({
   providedIn: 'root',
 })
 export class AIModelService {
   aiModels: AIModel[];
   aiModel!: AIModel;
-  //un tableau de AIModel
+  categories!: Categorie[];
+
   constructor() {
+    this.categories = [
+      { idCat: 1, nomCat: "NLP" },
+      { idCat: 2, nomCat: "Computer Vision" }
+    ];
+
     this.aiModels = [
       {
         idModel: 1,
-        name: 'ChatGPT',
-        version: '3.5',
-        trainingDate: new Date('01/14/2011'),
-        accuracy: 0.92,
+        name: "GPT-4",
+        version: "4.0",
+        trainingDate: new Date("01/14/2023"),
+        accuracy: 95.5,
+        categorie: { idCat: 1, nomCat: "NLP" }
       },
       {
         idModel: 2,
-        name: 'Bard',
-        version: '1.0',
-        trainingDate: new Date('12/17/2010'),
-        accuracy: 0.88,
+        name: "BERT",
+        version: "2.0",
+        trainingDate: new Date("12/17/2022"),
+        accuracy: 88.3,
+        categorie: { idCat: 1, nomCat: "NLP" }
       },
       {
         idModel: 3,
-        name: 'Claude',
-        version: '2.1',
-        trainingDate: new Date('02/20/2020'),
-        accuracy: 0.90,
-      },
+        name: "Claude",
+        version: "3.5",
+        trainingDate: new Date("02/20/2024"),
+        accuracy: 92.7,
+        categorie: { idCat: 2, nomCat: "Computer Vision" }
+      }
     ];
   }
+
   listeAIModels(): AIModel[] {
     return this.aiModels;
   }
+
   ajouterAIModel(model: AIModel) {
     this.aiModels.push(model);
   }
+
   supprimerAIModel(model: AIModel) {
-    //supprimer le modèle model du tableau aiModels
     const index = this.aiModels.indexOf(model, 0);
     if (index > -1) {
       this.aiModels.splice(index, 1);
     }
-    //ou Bien
-    /* this.aiModels.forEach((cur, index) => {
-if(model.idModel === cur.idModel) {
-this.aiModels.splice(index, 1);
-}
-}); */
   }
 
   consulterAIModel(id: number): AIModel {
     this.aiModel = this.aiModels.find((m) => m.idModel == id)!;
     return this.aiModel;
   }
+
   updateAIModel(model: AIModel) {
-    //chercher le modèle model du tableau aiModels
     const index = this.aiModels.indexOf(model, 0);
     if (index > -1) {
-      this.aiModels.splice(index, 1); //supprimer l'ancien éléments
-      this.aiModels.splice(index, 0, model); // insérer le nouvel élément
+      this.aiModels.splice(index, 1);
+      this.aiModels.splice(index, 0, model);
     }
   }
 }
