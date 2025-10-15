@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
-import { Produits } from './produits/produits';
-import { AddProduitComponent } from './add-produit/add-produit';
+import { Produits } from './ai-models/ai-models';
+import { AddProduitComponent } from './add-ai-model/add-ai-model';
 import { UpdateProduit } from './update-produit/update-produit';
 
 

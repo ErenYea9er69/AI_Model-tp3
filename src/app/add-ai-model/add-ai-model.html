@@ -1,0 +1,45 @@
+<div class="container">
+    <div>
+      <h2>Ajouter un Modèle IA :</h2>             
+    </div>
+         <form > 
+         
+             <div class="col-sm-2 col-md-2 col-lg-2">
+               <label >ID  Modèle</label>
+               <input   type="text"  [(ngModel)]="newAIModel.idModel"  
+                   name="idModel" class="form-control">
+              </div>
+         
+             <div class="col-sm-4 col-md-4 col-lg-4" >
+               <label >Nom Modèle</label>
+               <input  type="text"[(ngModel)]= "newAIModel.name"  
+                   name="name" class="form-control">
+             </div>
+
+             <div class="col-sm-2 col-md-2 col-lg-2">
+               <label >Version</label>
+               <input type="text"   [(ngModel)]= "newAIModel.version"  
+                   name="version" class="form-control">
+             </div>
+
+             <div class="col-sm-2 col-md-2 col-lg-2">
+               <label >Accuracy</label>
+               <input type="number" step="0.01"  [(ngModel)]= "newAIModel.accuracy"  
+                   name="accuracy" class="form-control">
+             </div>
+
+             <div class="col-sm-4 col-md-4 col-lg-4">
+                 <label >Date d'entraînement</label>
+                 <input type="date"  [(ngModel)]= "newAIModel.trainingDate" 
+                     name="trainingDate" class="form-control">
+             </div>
+              
+       <div class="mt-2">
+  <button type="submit" (click)="addAIModel()"class="btn btn-success">Ajouter</button>
+       </div>   
+
+       <div class="mt-2">
+        <h3>{{message}}</h3>
+             </div>   
+         </form>
+</div>
