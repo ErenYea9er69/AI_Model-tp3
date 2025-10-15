@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Produit } from '../model/produit.model';
+import { Produit } from '../model/ai.model';
 import { ProduitService } from '../services/produit';
 
 @Component({
