@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Produit } from '../model/ai.model';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ProduitService } from '../services/produit';
+import { ProduitService } from '../services/ai';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 @Component({
