@@ -1,12 +1,12 @@
 import { Routes } from '@angular/router';
-import { Produits } from './ai-models/ai-models';
-import { AddProduitComponent } from './add-ai-model/add-ai-model';
-import { UpdateProduit } from './update-ai-model/update-ai-model';
+import { AIModels } from './ai-models/ai-models';
+import { AddAIModelComponent } from './add-ai-model/add-ai-model';
+import { UpdateAIModel } from './update-ai-model/update-ai-model';
 
 
 export const routes: Routes = [
-    {path: "produits", component : Produits},
-    {path: "add-produit", component : AddProduitComponent},
-    {path: "updateProduit/:id", component: UpdateProduit},
-    {path: "", redirectTo: "produits", pathMatch: "full"}
+    {path: "aiModels", component : AIModels},
+    {path: "add-ai-model", component : AddAIModelComponent},
+    {path: "updateAIModel/:id", component: UpdateAIModel},
+    {path: "", redirectTo: "aiModels", pathMatch: "full"}
 ];
