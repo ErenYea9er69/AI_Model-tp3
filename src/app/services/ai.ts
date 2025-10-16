@@ -71,4 +71,12 @@ export class AIModelService {
       this.aiModels.splice(index, 0, model);
     }
   }
+
+  listeCategories():Categorie[] {
+return this.categories;
+}
+consulterCategorie(id:number): Categorie{
+return this.categories.find(cat => cat.idCat == id)!;
+}
+
 }
