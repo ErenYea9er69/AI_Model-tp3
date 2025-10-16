@@ -24,6 +24,12 @@
             <input type="date" [ngModel]="currentAIModel.trainingDate | date: 'yyyy-MM-dd'"
                 (ngModelChange)=" currentAIModel.trainingDate= $event" name="trainingDate" class="form-control">
         </div>
+        <select class="form-control form-control-lg" id="idCat" name="idCat" [(ngModel)]="updatedCatId">
+            @for(cat of categories; track cat.idCat)
+            {
+            <option [value]="cat.idCat"> {{cat.nomCat}} </option>
+            }
+        </select>
         <div class="mt-2">
             <button type="submit" (click)="updateAIModel()" class="btn btn-success">Modifer</button>
         </div>
