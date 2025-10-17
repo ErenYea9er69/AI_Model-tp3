@@ -23,7 +23,7 @@ export class AIModelService {
         version: "4.0",
         trainingDate: new Date("01/14/2023"),
         accuracy: 95.5,
-        categorie: { idCat: 1, nomCat: "Close-source" }
+        categorie: { idCat: 2, nomCat: "Close-source" }
       },
       {
         idModel: 2,
@@ -31,7 +31,7 @@ export class AIModelService {
         version: "2.0",
         trainingDate: new Date("12/17/2022"),
         accuracy: 88.3,
-        categorie: { idCat: 1, nomCat: "Close-source" }
+        categorie: { idCat: 2, nomCat: "Close-source" }
       },
       {
         idModel: 3,
@@ -39,7 +39,7 @@ export class AIModelService {
         version: "2",
         trainingDate: new Date("02/20/2024"),
         accuracy: 92.7,
-        categorie: { idCat: 2, nomCat: "Open-source" }
+        categorie: { idCat: 1, nomCat: "Open-source" }
       }
     ];
   }
