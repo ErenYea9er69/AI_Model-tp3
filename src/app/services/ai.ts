@@ -12,8 +12,8 @@ export class AIModelService {
 
   constructor() {
     this.categories = [
-      { idCat: 1, nomCat: "NLP" },
-      { idCat: 2, nomCat: "Computer Vision" }
+      { idCat: 1, nomCat: "Open source" },
+      { idCat: 2, nomCat: "close source" }
     ];
 
     this.aiModels = [
