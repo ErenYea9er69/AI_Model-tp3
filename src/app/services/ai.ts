@@ -12,8 +12,8 @@ export class AIModelService {
 
   constructor() {
     this.categories = [
-      { idCat: 1, nomCat: "Open source" },
-      { idCat: 2, nomCat: "close source" }
+      { idCat: 1, nomCat: "Open-source" },
+      { idCat: 2, nomCat: "Close-source" }
     ];
 
     this.aiModels = [
@@ -23,7 +23,7 @@ export class AIModelService {
         version: "4.0",
         trainingDate: new Date("01/14/2023"),
         accuracy: 95.5,
-        categorie: { idCat: 1, nomCat: "NLP" }
+        categorie: { idCat: 1, nomCat: "Close-source" }
       },
       {
         idModel: 2,
@@ -31,15 +31,15 @@ export class AIModelService {
         version: "2.0",
         trainingDate: new Date("12/17/2022"),
         accuracy: 88.3,
-        categorie: { idCat: 1, nomCat: "NLP" }
+        categorie: { idCat: 1, nomCat: "Close-source" }
       },
       {
         idModel: 3,
-        name: "Claude",
-        version: "3.5",
+        name: "Kimi",
+        version: "2",
         trainingDate: new Date("02/20/2024"),
         accuracy: 92.7,
-        categorie: { idCat: 2, nomCat: "Computer Vision" }
+        categorie: { idCat: 2, nomCat: "Open-source" }
       }
     ];
   }
