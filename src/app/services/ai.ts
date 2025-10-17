@@ -28,7 +28,7 @@ export class AIModelService {
       {
         idModel: 2,
         name: "BERT",
-        version: "2.0",
+        version: "3.5",
         trainingDate: new Date("12/17/2022"),
         accuracy: 88.3,
         categorie: { idCat: 2, nomCat: "Close-source" }
