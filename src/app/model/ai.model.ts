@@ -1,5 +1,4 @@
-import { Categorie } from "./categorie.model";
-
+import { OpenState } from "./OpenState.model";
 
 export class AIModel {
   idModel?: number;
@@ -7,6 +6,5 @@ export class AIModel {
   version?: string;
   trainingDate?: Date;
   accuracy?: number;
-  categorie! : Categorie;
-
+  OpenState! : OpenState;
 }

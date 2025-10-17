@@ -25,9 +25,9 @@
                 (ngModelChange)=" currentAIModel.trainingDate= $event" name="trainingDate" class="form-control">
         </div>
         <select class="form-control form-control-lg" id="idCat" name="idCat" [(ngModel)]="updatedCatId">
-            @for(cat of categories; track cat.idCat)
+            @for(cat of categories; track cat.idstate)
             {
-            <option [value]="cat.idCat"> {{cat.nomCat}} </option>
+            <option [value]="cat.idstate"> {{cat.nomstate}} </option>
             }
         </select>
         <div class="mt-2">

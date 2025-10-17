@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AIModelService } from '../services/ai';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-  import { Categorie } from '../model/categorie.model';
+  import { OpenState } from '../model/OpenState.model';
 
 @Component({
   selector: 'app-update-ai-model',
@@ -15,7 +15,7 @@ import { CommonModule } from '@angular/common';
 export class UpdateAIModel implements OnInit {
 
 
-categories! : Categorie[];
+categories! : OpenState[];
 updatedCatId! : number;
 
   currentAIModel = new AIModel();
@@ -28,13 +28,13 @@ updatedCatId! : number;
 
     this.currentAIModel = this.aiModelService.consulterAIModel(
       this.activatedRoute.snapshot.params['id']);
-      this.updatedCatId=this.currentAIModel.categorie.idCat;
+      this.updatedCatId=this.currentAIModel.OpenState.idstate;
 
     console.log(this.currentAIModel);
   }
 updateAIModel()
 { //console.log(this.currentAIModel);
-  this.currentAIModel.categorie=this.aiModelService.consulterCategorie(this.updatedCatId);
+  this.currentAIModel.OpenState=this.aiModelService.consulterCategorie(this.updatedCatId);
 
 this.aiModelService.updateAIModel(this.currentAIModel);
 this.router.navigate(['aiModels']);

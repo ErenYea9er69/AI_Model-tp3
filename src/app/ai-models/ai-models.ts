@@ -11,7 +11,7 @@ import { Router, RouterLink } from '@angular/router';
   templateUrl: './ai-models.html',
 })
 export class AIModels  {
-  aiModels? : AIModel[]; // Array of AIModel objects
+  aiModels? : AIModel[];
 
 
 constructor(  private aiModelService : AIModelService) {

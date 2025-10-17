@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AIModel } from '../model/ai.model';
-import { Categorie } from "../model/categorie.model";
+import { OpenState } from "../model/OpenState.model";
 
 @Injectable({
   providedIn: 'root',
@@ -8,12 +8,12 @@ import { Categorie } from "../model/categorie.model";
 export class AIModelService {
   aiModels: AIModel[];
   aiModel!: AIModel;
-  categories!: Categorie[];
+  categories!: OpenState[];
 
   constructor() {
     this.categories = [
-      { idCat: 1, nomCat: "Open-source" },
-      { idCat: 2, nomCat: "Close-source" }
+      { idstate: 1, nomstate: "Open-source" },
+      { idstate: 2, nomstate: "Close-source" }
     ];
 
     this.aiModels = [
@@ -23,7 +23,7 @@ export class AIModelService {
         version: "4.0",
         trainingDate: new Date("01/14/2023"),
         accuracy: 95.5,
-        categorie: { idCat: 2, nomCat: "Close-source" }
+        OpenState: { idstate: 2, nomstate: "Close-source" }
       },
       {
         idModel: 2,
@@ -31,7 +31,7 @@ export class AIModelService {
         version: "3.5",
         trainingDate: new Date("12/17/2022"),
         accuracy: 88.3,
-        categorie: { idCat: 2, nomCat: "Close-source" }
+        OpenState: { idstate: 2, nomstate: "Close-source" }
       },
       {
         idModel: 3,
@@ -39,7 +39,7 @@ export class AIModelService {
         version: "2",
         trainingDate: new Date("02/20/2024"),
         accuracy: 92.7,
-        categorie: { idCat: 1, nomCat: "Open-source" }
+        OpenState: { idstate: 1, nomstate: "Open-source" }
       }
     ];
   }
@@ -72,11 +72,11 @@ export class AIModelService {
     }
   }
 
-  listeCategories():Categorie[] {
+  listeCategories():OpenState[] {
 return this.categories;
 }
-consulterCategorie(id:number): Categorie{
-return this.categories.find(cat => cat.idCat == id)!;
+consulterCategorie(id:number): OpenState{
+return this.categories.find(cat => cat.idstate == id)!;
 }
 
 }
