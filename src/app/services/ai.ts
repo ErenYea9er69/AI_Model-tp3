@@ -8,10 +8,11 @@ import { OpenState } from "../model/OpenState.model";
 export class AIModelService {
   aiModels: AIModel[];
   aiModel!: AIModel;
-  categories!: OpenState[];
+  OpenStates!: OpenState[];
+  aiModelrecherche!: AIModel[];
 
   constructor() {
-    this.categories = [
+    this.OpenStates = [
       { idstate: 1, nomstate: "Open-source" },
       { idstate: 2, nomstate: "Close-source" }
     ];
@@ -72,11 +73,21 @@ export class AIModelService {
     }
   }
 
-  listeCategories():OpenState[] {
-return this.categories;
+  listestate():OpenState[] {
+return this.OpenStates;
 }
 consulterCategorie(id:number): OpenState{
-return this.categories.find(cat => cat.idstate == id)!;
+return this.OpenStates.find(cat => cat.idstate == id)!;
 }
 
+rechercherParCategorie(IdS: number): AIModel[]{
+this.aiModelrecherche = [ ] ;
+this.aiModels.forEach(( cur, index) => {
+
+if(IdS== cur.OpenState.idstate) {
+console.log("cur "+ cur);
+this.aiModelrecherche.push(cur);}
+});
+return this.aiModelrecherche;
+}
 }

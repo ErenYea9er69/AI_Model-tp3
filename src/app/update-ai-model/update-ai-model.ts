@@ -24,7 +24,7 @@ updatedCatId! : number;
      private aiModelService: AIModelService) {}
   ngOnInit() {
     // console.log(this.route.snapshot.params.id);
-    this.categories = this.aiModelService.listeCategories();
+    this.categories = this.aiModelService.listestate();
 
     this.currentAIModel = this.aiModelService.consulterAIModel(
       this.activatedRoute.snapshot.params['id']);
