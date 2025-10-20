@@ -35,6 +35,8 @@ export class RechercheParCategorie implements OnInit {
     if (conf) {
       this.aiModelService.supprimerAIModel(model);
       this.aiModels = this.aiModelService.listeAIModels();
+      this.aiModels = this.aiModelService.rechercherParCategorie(this.IdS);
+
     }
   }
 
