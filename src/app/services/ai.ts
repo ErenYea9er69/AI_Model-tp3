@@ -90,4 +90,7 @@ this.aiModelrecherche.push(cur);}
 });
 return this.aiModelrecherche;
 }
+
+
+
 }

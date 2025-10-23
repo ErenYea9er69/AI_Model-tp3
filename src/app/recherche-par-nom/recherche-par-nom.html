@@ -1,1 +1,46 @@
-<p>recherche-par-nom works!</p>
+<div class="container">
+  <form class="form-inline">
+    <div class="form-group mx-sm-3 mb-2 mt-2">
+      <label>Nom Produit en tapant</label>
+      <input class="form-control" #searchTerm (keyup)="onKeyUp(searchTerm.value)">
+    </div>
+  </form>
+
+  <div class="card shadow mb-4">
+    <div class="card-body">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>N°</th>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Version</th>
+            <th>Training Date</th>
+            <th>Accuracy</th>
+            <th>Openstate</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        @for (model of aiModels; track model.idModel; let index = $index) {
+          <tbody>
+            <tr>
+              <td>{{index}}</td>
+              <td>{{model.idModel}}</td>
+              <td>{{model.name}}</td>
+              <td>{{model.version}}</td>
+              <td>{{model.trainingDate | date:'dd/MM/yyyy'}}</td>
+              <td>{{model.accuracy}}</td>
+              <td>{{model.OpenState.nomstate}}</td>
+              <td>
+                <a class="btn btn-danger" (click)="supprimerAIModel(model)">Supprimer</a>
+              </td>
+              <td>
+                <a class="btn btn-success" [routerLink]="['/updateAIModel', model.idModel]">Modifier</a>
+              </td>
+            </tr>
+          </tbody>
+        }
+      </table>
+    </div>
+  </div>
+</div>
