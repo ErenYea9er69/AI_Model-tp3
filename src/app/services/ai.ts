@@ -19,29 +19,85 @@ export class AIModelService {
 
     this.aiModels = [
       {
-        idModel: 1,
-        name: "GPT-4",
-        version: "4.0",
-        trainingDate: new Date("01/14/2023"),
-        accuracy: 95.5,
-        OpenState: { idstate: 2, nomstate: "Close-source" }
-      },
-      {
-        idModel: 2,
-        name: "BERT",
-        version: "3.5",
-        trainingDate: new Date("12/17/2022"),
-        accuracy: 88.3,
-        OpenState: { idstate: 2, nomstate: "Close-source" }
-      },
-      {
-        idModel: 3,
-        name: "Kimi",
-        version: "2",
-        trainingDate: new Date("02/20/2024"),
-        accuracy: 92.7,
-        OpenState: { idstate: 1, nomstate: "Open-source" }
-      }
+    idModel: 1,
+    name: "GPT-5",
+    version: "5.0",
+    trainingDate: new Date("04/15/2025"),
+    accuracy: 97.5,
+    OpenState: { idstate: 2, nomstate: "Close-source" }
+  },
+  {
+    idModel: 2,
+    name: "Claude 3.5 Sonnet",
+    version: "3.5",
+    trainingDate: new Date("07/10/2024"),
+    accuracy: 96.1,
+    OpenState: { idstate: 2, nomstate: "Close-source" }
+  },
+  {
+    idModel: 3,
+    name: "Grok 3",
+    version: "3.0",
+    trainingDate: new Date("08/05/2024"),
+    accuracy: 94.3,
+    OpenState: { idstate: 2, nomstate: "Close-source" }
+  },
+  {
+    idModel: 4,
+    name: "Gemini 1.5 Pro",
+    version: "1.5",
+    trainingDate: new Date("03/01/2024"),
+    accuracy: 95.0,
+    OpenState: { idstate: 2, nomstate: "Close-source" }
+  },
+  {
+    idModel: 5,
+    name: "Kimi Chat 2.0",
+    version: "2.0",
+    trainingDate: new Date("02/20/2024"),
+    accuracy: 92.7,
+    OpenState: { idstate: 1, nomstate: "Open-source" }
+  },
+  {
+    idModel: 6,
+    name: "DeepSeek V2",
+    version: "2.0",
+    trainingDate: new Date("05/22/2024"),
+    accuracy: 93.4,
+    OpenState: { idstate: 1, nomstate: "Open-source" }
+  },
+  {
+    idModel: 7,
+    name: "LongCat XL",
+    version: "1.3",
+    trainingDate: new Date("06/11/2024"),
+    accuracy: 91.2,
+    OpenState: { idstate: 1, nomstate: "Open-source" }
+  },
+  {
+    idModel: 8,
+    name: "Mistral 7B",
+    version: "1.0",
+    trainingDate: new Date("10/10/2023"),
+    accuracy: 89.7,
+    OpenState: { idstate: 1, nomstate: "Open-source" }
+  },
+  {
+    idModel: 9,
+    name: "LLaMA 3",
+    version: "3.0",
+    trainingDate: new Date("05/20/2024"),
+    accuracy: 91.5,
+    OpenState: { idstate: 1, nomstate: "Open-source" }
+  },
+  {
+    idModel: 10,
+    name: "Claude 3 Opus",
+    version: "3.0",
+    trainingDate: new Date("05/01/2024"),
+    accuracy: 96.5,
+    OpenState: { idstate: 2, nomstate: "Close-source" }
+  }
     ];
   }
 
