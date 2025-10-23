@@ -7,10 +7,10 @@ import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 
 @Component({
-  selector: 'app-recherche-par-categorie',
+  selector: 'app-recherche-par-state',
   standalone: true, 
   imports: [CommonModule, FormsModule, RouterLink],
-  templateUrl: './recherche-par-categorie.html',
+  templateUrl: './recherche-par-state.html',
 })
 export class RechercheParCategorie implements OnInit {
   aiModels!: AIModel[]; 
