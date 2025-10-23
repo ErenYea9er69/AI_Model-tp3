@@ -12,7 +12,7 @@ import { RouterLink } from '@angular/router';
   imports: [CommonModule, FormsModule, RouterLink],
   templateUrl: './recherche-par-state.html',
 })
-export class RechercheParCategorie implements OnInit {
+export class RechercheParState implements OnInit {
   aiModels!: AIModel[]; 
   OpenState!: OpenState[]; 
   IdS!: number; 

@@ -2,13 +2,16 @@ import { Routes } from '@angular/router';
 import { AIModels } from './ai-models/ai-models';
 import { AddAIModelComponent } from './add-ai-model/add-ai-model';
 import { UpdateAIModel } from './update-ai-model/update-ai-model';
-import { RechercheParCategorie } from './recherche-par-state/recherche-par-state';
+import { RechercheParState } from './recherche-par-state/recherche-par-state';
+import { RechercheParNom } from './recherche-par-nom/recherche-par-nom';
 
 
 export const routes: Routes = [
     {path: "aiModels", component : AIModels},
     {path: "add-ai-model", component : AddAIModelComponent},
     {path: "updateAIModel/:id", component: UpdateAIModel},
-    {path: "rechercheParCategorie", component: RechercheParCategorie },
+    {path: "rechercheParCategorie", component: RechercheParState },
+    {path: "rechercheParNom", component : RechercheParNom},
+
     {path: "", redirectTo: "aiModels", pathMatch: "full"}
 ];
