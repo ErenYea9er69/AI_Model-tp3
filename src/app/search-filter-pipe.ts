@@ -11,5 +11,4 @@ return  list.filter(item =>
       item.name?.toLowerCase().includes(filterText.toLowerCase()))
 }
 
-
 }

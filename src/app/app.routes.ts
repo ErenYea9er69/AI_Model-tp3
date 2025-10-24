@@ -10,8 +10,7 @@ export const routes: Routes = [
     {path: "aiModels", component : AIModels},
     {path: "add-ai-model", component : AddAIModelComponent},
     {path: "updateAIModel/:id", component: UpdateAIModel},
-    {path: "rechercheParCategorie", component: RechercheParState },
+    {path: "rechercheParOpenstate", component: RechercheParState },
     {path: "rechercheParNom", component : RechercheParNom},
-
     {path: "", redirectTo: "aiModels", pathMatch: "full"}
 ];
