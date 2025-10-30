@@ -5,6 +5,7 @@ export class AIModel {
   name?: string;
   version?: string;
   trainingDate?: Date;
+  email?: string;
   accuracy?: number;
   OpenState! : OpenState;
 }

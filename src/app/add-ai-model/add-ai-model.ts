@@ -26,17 +26,8 @@ export class AddAIModelComponent {
     this.categories = this.aiModelService.listestate();
   }
 
-/*************  ✨ Windsurf Command ⭐  *************/
-/**
- * Ajoute un modèle IA
- * 
- * @remarks
- * Cette méthode ajoute un modèle IA
- * Elle prend en paramètre l'ID de la catégorie
- * Elle met à jour le message en cas d'ajout réussi
- * Elle redirige vers la page des modèles IA
- */
-/*******  38bda0dd-c9dc-4411-90e0-2b743aa2d6f7  *******/  addAIModel() {
+
+ addAIModel() {
 
     this.newCategorie = this.aiModelService.consulterCategorie(this.newIdCat);
     this.newAIModel.OpenState = this.newCategorie;

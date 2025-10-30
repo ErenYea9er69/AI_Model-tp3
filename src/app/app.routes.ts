@@ -5,12 +5,12 @@ import { UpdateAIModel } from './update-ai-model/update-ai-model';
 import { RechercheParState } from './recherche-par-state/recherche-par-state';
 import { RechercheParNom } from './recherche-par-nom/recherche-par-nom';
 
-
 export const routes: Routes = [
     {path: "aiModels", component : AIModels},
     {path: "add-ai-model", component : AddAIModelComponent},
     {path: "updateAIModel/:id", component: UpdateAIModel},
     {path: "rechercheParOpenstate", component: RechercheParState },
     {path: "rechercheParNom", component : RechercheParNom},
+
     {path: "", redirectTo: "aiModels", pathMatch: "full"}
 ];

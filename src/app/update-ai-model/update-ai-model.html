@@ -24,6 +24,10 @@
             <input type="date" [ngModel]="currentAIModel.trainingDate | date: 'yyyy-MM-dd'"
                 (ngModelChange)=" currentAIModel.trainingDate= $event" name="trainingDate" class="form-control">
         </div>
+        <div class="col-sm-4 col-md-4 col-lg-4">
+            <label>Email</label>
+            <input type="email" [(ngModel)]="currentAIModel.email" name="email" class="form-control">
+        </div>
         <select class="form-control form-control-lg" id="idCat" name="idCat" [(ngModel)]="updatedCatId">
             @for(cat of categories; track cat.idstate)
             {

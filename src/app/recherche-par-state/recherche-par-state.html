@@ -24,6 +24,7 @@
           <th>Version</th>
           <th>Training Date</th>
           <th>Accuracy</th>
+          <th>Email</th>
           <th>Openstate</th>
         </tr>
         @for (model of aiModels; track model.idModel; let index =$index; let
@@ -36,6 +37,7 @@
             <td>{{model.version}}</td>
             <td>{{model.trainingDate | date:'dd/MM/yyyy'}}</td>
             <td>{{model.accuracy}}</td>
+            <td>{{model.email}}</td>
             <td>{{model.OpenState?.nomstate}}</td>
             <td>
               <a class="btn btn-danger" (click)="supprimerAIModel(model)"

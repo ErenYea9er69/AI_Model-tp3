@@ -33,9 +33,20 @@
                  <input type="date"  [(ngModel)]= "newAIModel.trainingDate" 
                      name="trainingDate" class="form-control">
              </div>
+
+             <div class="col-sm-4 col-md-4 col-lg-4">
+                 <label >Email</label>
+                 <input type="email"  [(ngModel)]= "newAIModel.email" 
+                     name="email" class="form-control">
+             </div>
+
              <div class="col-sm-4 col-md-4 col-lg-4">
             <label>Openstate</label>
+
             <select class="form-control form-control-lg" id="idCat" name="idCat" [(ngModel)]="newIdCat">
+              
+              
+              
               @for(cat of categories; track cat.idstate){
               <option [value]="cat.idstate"> {{cat.nomstate}} </option>
               }
