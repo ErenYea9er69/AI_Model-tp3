@@ -24,7 +24,6 @@ export class RechercheParNom implements OnInit {
 
   ngOnInit(): void {
     this.allAImodels = this.AIModelService.listeAIModels();
-    this.aiModels = this.allAImodels;
   }
 
   onKeyUp(filterText: string) {

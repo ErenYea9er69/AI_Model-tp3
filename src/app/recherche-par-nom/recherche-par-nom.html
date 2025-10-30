@@ -1,17 +1,17 @@
 <div class="container">
 
-<!--   <form class="form-inline">
+  <form class="form-inline">
     <div class="form-group mx-sm-3 mb-2 mt-2">
       <label>Nom Produit en tapant</label>
       <input class="form-control" #searchTerm (keyup)="onKeyUp(searchTerm.value)">
     </div>
-  </form> -->
-<form class="form-inline">
+  </form> 
+<!-- <form class="form-inline">
     <div class="form-group mx-sm-3 mb-2 mt-2 ">
         <label>Nom Produit en tapant</label>
         <input #nom [(ngModel)]="searchTerm" name="searchTerm" class="form-control">
     </div>
-</form>
+</form> -->
 
 
   <div class="card shadow mb-4">
@@ -29,7 +29,7 @@
             <th>Actions</th>
           </tr>
         </thead>
-        @for (model of aiModels | searchFilter: searchTerm; track model.idModel; let index = $index) {
+        @for (model of aiModels ; track model.idModel; let index = $index) {
           <tbody>
             <tr>
               <td>{{index}}</td>
