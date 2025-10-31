@@ -30,14 +30,14 @@ export class UpdateAIModel implements OnInit {
     this.categories = this.aiModelService.listestate();
 
     this.currentAIModel = this.aiModelService.consulterAIModel(
-      this.activatedRoute.snapshot.params['id']);
+    this.activatedRoute.snapshot.params['id']);
     this.updatedCatId=this.currentAIModel.OpenState.idstate;
 
     this.myAI = this.formBuilder.group({
       idModel: [{value: '', disabled: true}, [Validators.required]],
-      name: ['', [Validators.required, Validators.minLength(3)]],
+      name: ['', [Validators.required, Validators.minLength(5)]],
       version: ['', [Validators.required]],
-      accuracy: ['', [Validators.required]],
+      accuracy: ['', [Validators.required , Validators.min(10)]],
       trainingDate: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       idCat: ['', [Validators.required]]

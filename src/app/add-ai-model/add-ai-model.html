@@ -52,6 +52,11 @@
                     Accuracy est obligatoire
                 </span>
              }
+            @if (myAI.controls['accuracy'].hasError('min') && myAI.controls['accuracy'].touched) {
+                    <span class="text-danger">
+                        Accuracy doit être au moins 10
+                    </span>
+                }
 
              <div class="col-sm-4 col-md-4 col-lg-4">
                  <label >Date d'entraînement</label>

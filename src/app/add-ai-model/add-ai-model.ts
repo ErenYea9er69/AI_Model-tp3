@@ -32,13 +32,13 @@ export class AddAIModelComponent implements OnInit {
     
     this.myAI = this.formBuilder.group({
       idModel: ['', [Validators.required]],
-      name: ['', [Validators.required, Validators.minLength(3)]],
+      name: ['', [Validators.required, Validators.minLength(5)]],
       version: ['', [Validators.required]],
-      accuracy: ['', [Validators.required]],
+      accuracy: ['', [Validators.required, Validators.min(10)]],
       trainingDate: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       idCat: ['', [Validators.required]]
-    });
+    });                 
   }
 
   addAIModel() {
