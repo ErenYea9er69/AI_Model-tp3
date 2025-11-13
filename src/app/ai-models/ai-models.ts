@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { AIModel } from '../model/ai.model';
 import { AIModelService } from '../services/ai';
 import { Router, RouterLink } from '@angular/router';
+import { Auth } from '../services/auth';
+
 
 @Component({
   selector: 'app-ai-models',
@@ -14,7 +16,7 @@ export class AIModels  {
   aiModels? : AIModel[];
 
 
-constructor(  private aiModelService : AIModelService) {
+constructor(  private aiModelService : AIModelService, public authService: Auth ) {
 
   this.aiModels = this.aiModelService.listeAIModels();
 
