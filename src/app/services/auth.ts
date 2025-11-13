@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { User } from '../model/user.model';
 import { Router } from '@angular/router';
 
-
 @Injectable({
   providedIn: 'root',
 })
@@ -45,5 +44,18 @@ export class Auth {
       //this.roles== undefiened
       return false;
     return this.roles.indexOf('ADMIN') > -1;
+  }
+
+  setLoggedUserFromLocalStorage(login: string) {
+    this.loggedUser = login;
+    this.isloggedIn = true;
+    this.getUserRoles(login);
+  }
+  getUserRoles(username: string) {
+    this.users.forEach((curUser) => {
+      if (curUser.username == username) {
+        this.roles = curUser.roles;
+      }
+    });
   }
 }

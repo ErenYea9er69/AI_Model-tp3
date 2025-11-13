@@ -1,21 +1,28 @@
-import { Component, signal } from '@angular/core';
-import { RouterLink, RouterOutlet } from '@angular/router';
+import { Component, signal, OnInit } from '@angular/core';
+import { RouterLink, RouterOutlet, Router } from '@angular/router';
 import { Auth } from './services/auth';
 
 @Component({
   selector: 'app-root',
   imports: [RouterOutlet, RouterLink],
   templateUrl: './app.html',
-  styleUrl: './app.css'
+  styleUrl: './app.css',
 })
-export class App {
+export class App implements OnInit {
   protected readonly title = signal('AI Model Management System');
 
-    constructor( public authService: Auth) {}
+  constructor(public authService: Auth, private router : Router) {}
 
-    onLogout(){
-this.authService.logout();
-}
+  onLogout() {
+    this.authService.logout();
+  }
 
-
+  ngOnInit() {
+    let isloggedin: string;
+    let loggedUser: string;
+    isloggedin = localStorage.getItem('isloggedIn')!;
+    loggedUser = localStorage.getItem('loggedUser')!;
+    if (isloggedin != 'true' || !loggedUser) this.router.navigate(['/login']);
+    else this.authService.setLoggedUserFromLocalStorage(loggedUser);
+  }
 }
