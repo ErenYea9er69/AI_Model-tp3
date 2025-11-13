@@ -1,0 +1,32 @@
+<div class="container">
+  <div class="col-sm-4 col-md-4 col-lg-4 mb-4">
+    <app-update-openstate 
+      [openState]="updatedOpenState" 
+      (openStateUpdated)="openStateUpdated($event)" 
+      [ajout]="ajout">
+    </app-update-openstate>
+  </div>
+
+  <div class="card shadow mb-4">
+    <div class="card-body">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Nom OpenState</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        @for(openState of openStates; track openState.idstate) {
+          <tbody>
+            <tr>
+              <td>{{openState.idstate}}</td>
+              <td>{{openState.nomstate}}</td>
+              <td><a class="btn btn-success" (click)="updateOpenState(openState)">Editer</a></td>
+            </tr>
+          </tbody>
+        }
+      </table>
+    </div>
+  </div>
+</div>

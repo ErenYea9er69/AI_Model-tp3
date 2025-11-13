@@ -140,23 +140,42 @@ export class AIModelService {
   }
 
   listestate():OpenState[] {
-return this.OpenStates;
-}
-consulterCategorie(id:number): OpenState{
-return this.OpenStates.find(cat => cat.idstate == id)!;
-}
+    return this.OpenStates;
+  }
+  
+  consulterCategorie(id:number): OpenState{
+    return this.OpenStates.find(cat => cat.idstate == id)!;
+  }
 
-rechercherParCategorie(IdS: number): AIModel[]{
-this.aiModelrecherche = [ ] ;
-this.aiModels.forEach(( cur, index) => {
+  rechercherParCategorie(IdS: number): AIModel[]{
+    this.aiModelrecherche = [] ;
+    this.aiModels.forEach((cur, index) => {
+      if(IdS == cur.OpenState.idstate) {
+        console.log("cur "+ cur);
+        this.aiModelrecherche.push(cur);
+      }
+    });
+    return this.aiModelrecherche;
+  }
 
-if(IdS== cur.OpenState.idstate) {
-console.log("cur "+ cur);
-this.aiModelrecherche.push(cur);}
-});
-return this.aiModelrecherche;
-}
+  ajouterOpenState(model: OpenState): void {
+    const maxId = Math.max(...this.OpenStates.map(s => s.idstate), 0);
+    model.idstate = maxId + 1;
+    this.OpenStates.push(model);
+  }
 
+  updateOpenState(model: OpenState): void {
+    const index = this.OpenStates.indexOf(model, 0);
+    if (index > -1) {
+      this.OpenStates.splice(index, 1);
+      this.OpenStates.splice(index, 0, model);
+    }
+  }
 
-
+  supprimerOpenState(model: OpenState): void {
+    const index = this.OpenStates.indexOf(model, 0);
+    if (index > -1) {
+      this.OpenStates.splice(index, 1);
+    }
+  }
 }

@@ -23,6 +23,9 @@
                         <li><a class="dropdown-item" routerLink="/rechercheParOpenstate">Recherche par openstate</a>
                         </li>
                         <li><a class="dropdown-item" routerLink="/rechercheParNom">Recherche Par Nom</a></li>
+                        @if(authService.isAdmin()) {
+
+                        <li><a class="dropdown-item" routerLink="/liste-openstates">Gérer OpenStates</a></li>}
 
                     </ul>
                 </li>
