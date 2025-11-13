@@ -1,7 +1,13 @@
 <div class="container mt-5">
     <div class="row justify-content-md-center">
         <div class="col-md-4">
+            @if(erreur==true) {
+                <div class="alert alert-danger">
+                    <strong>login ou mot de passe erronés..</strong>
+                </div>
+                }
             <form>
+                
                 <div class="form-group">
                     <label>Nom Utilisateur :</label>
                     <input type="text" name="username" class="form-control" [(ngModel)]="user.username">
