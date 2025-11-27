@@ -55,8 +55,11 @@ export class AIModels implements OnInit {
           return 0;
       }
 
-      if (aVal < bVal) return this.sortDirection === 'asc' ? -1 : 1;
-      if (aVal > bVal) return this.sortDirection === 'asc' ? 1 : -1;
+      // Reverse logic for accuracy column
+      const multiplier = this.sortColumn === 'accuracy' ? -1 : 1;
+      
+      if (aVal < bVal) return (this.sortDirection === 'asc' ? -1 : 1) * multiplier;
+      if (aVal > bVal) return (this.sortDirection === 'asc' ? 1 : -1) * multiplier;
       return 0;
     });
   }
@@ -72,7 +75,7 @@ export class AIModels implements OnInit {
 
   getSortArrow(column: string): string {
     if (this.sortColumn !== column) return '';
-    return this.sortDirection === 'asc' ? '▲' : '▼';
+    return this.sortDirection === 'asc' ? '↑' : '↓';
   }
 
   supprimerAIModel(model: AIModel) {
