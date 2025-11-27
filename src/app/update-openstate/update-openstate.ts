@@ -15,10 +15,11 @@ export class UpdateOpenState implements OnInit {
   @Output() openStateUpdated = new EventEmitter<OpenState>();
 
   ngOnInit(): void {
-    console.log('ngOnInit du composant UpdateOpenState', this.openState, 'ajout=', this.ajout);
+    console.log('UpdateOpenState component initialized', this.openState, 'ajout=', this.ajout);
   }
 
   saveOpenState() {
+    console.log('Saving OpenState, ajout=', this.ajout, 'data=', this.openState);
     this.openStateUpdated.emit(this.openState);
   }
 }

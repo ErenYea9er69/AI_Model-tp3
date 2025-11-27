@@ -12,7 +12,7 @@ import { CommonModule } from '@angular/common';
 })
 export class ListeOpenStates implements OnInit {
   openStates: OpenState[] = [];
-  updatedOpenState: OpenState = { idstate: 0, nomstate: "" };
+  updatedOpenState: OpenState = { idstate: undefined as any, nomstate: "" };
   ajout: boolean = true;
 
   constructor(private aiModelService: AIModelService) {}
@@ -35,9 +35,15 @@ export class ListeOpenStates implements OnInit {
   openStateUpdated(openState: OpenState) {
     console.log('OpenState updated event', openState);
     
+    // Créer une copie sans l'ID lors de l'ajout pour éviter les conflits
+    const stateToSend = { ...openState };
+    if (this.ajout) {
+      stateToSend.idstate = undefined as any;
+    }
+    
     const operation = this.ajout 
-      ? this.aiModelService.ajouterOpenState(openState)
-      : this.aiModelService.updateOpenState(openState);
+      ? this.aiModelService.ajouterOpenState(stateToSend)
+      : this.aiModelService.updateOpenState(stateToSend);
 
     operation.subscribe({
       next: () => {
@@ -51,7 +57,7 @@ export class ListeOpenStates implements OnInit {
   }
 
   resetForm(): void {
-    this.updatedOpenState = { idstate: 0, nomstate: "" };
+    this.updatedOpenState = { idstate: undefined as any, nomstate: "" };
     this.ajout = true;
   }
 
