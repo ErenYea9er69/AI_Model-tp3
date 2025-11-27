@@ -2,8 +2,27 @@
   <div class="card shadow mb-4">                   
     <div class="card-body"> 
      <table class="table table-striped">
-        <tr> <th>N°</th><th>Id</th><th>Name</th> <th>Version</th>  <th>Training Date</th> <th>Accuracy</th>  <th>Email</th>  <th>Openstate</th> </tr>          
-         @for (model of aiModels; track model.idModel; let index =$index; let nbr=$count; let first = $first; let last = $last)
+        <tr>
+          <th>N°</th>
+          <th>Id</th>
+          <th (click)="sort('name')" style="cursor: pointer; user-select: none;">
+            Name 
+            <span class="sort-arrow">{{getSortArrow('name')}}</span>
+          </th>
+          <th>Version</th>
+          <th>Training Date</th>
+          <th (click)="sort('accuracy')" style="cursor: pointer; user-select: none;">
+            Accuracy 
+            <span class="sort-arrow">{{getSortArrow('accuracy')}}</span>
+          </th>
+          <th>Email</th>
+          <th>Openstate</th>
+          @if(authService.isAdmin()) {
+          <th>Actions</th>
+          <th>Actions</th>
+          }
+        </tr>          
+         @for (model of sortedModels; track model.idModel; let index =$index; let nbr=$count; let first = $first; let last = $last)
          {
           <tbody >
             <tr >
@@ -14,7 +33,7 @@
                <td>{{model.trainingDate | date:'dd/MM/yyyy'}}</td>
                <td>{{model.accuracy}}</td>
                <td>{{model.email}}</td>
-               <td>{{model.openstate?.nomstate}}</td> <!-- Fixed: OpenState -> openstate -->
+               <td>{{model.openstate?.nomstate}}</td>
                @if(authService.isAdmin()) {
                <td><a class="btn btn-danger" (click)="supprimerAIModel(model)">Supprimer</a></td>
                <td><a class="btn btn-success" [routerLink]="['/updateAIModel',model.idModel]">Modifier</a></td>

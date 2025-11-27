@@ -13,6 +13,8 @@ import { Auth } from '../services/auth';
 })
 export class AIModels implements OnInit {
   aiModels: AIModel[] = [];
+  sortColumn: string = '';
+  sortDirection: 'asc' | 'desc' = 'asc';
 
   constructor(private aiModelService: AIModelService, public authService: Auth) {}
 
@@ -30,6 +32,47 @@ export class AIModels implements OnInit {
         this.aiModels = [];
       }
     });
+  }
+
+  get sortedModels(): AIModel[] {
+    if (!this.sortColumn || !this.aiModels.length) {
+      return this.aiModels;
+    }
+
+    return [...this.aiModels].sort((a, b) => {
+      let aVal: any, bVal: any;
+      
+      switch (this.sortColumn) {
+        case 'name':
+          aVal = a.name?.toLowerCase() || '';
+          bVal = b.name?.toLowerCase() || '';
+          break;
+        case 'accuracy':
+          aVal = a.accuracy ?? 0;
+          bVal = b.accuracy ?? 0;
+          break;
+        default:
+          return 0;
+      }
+
+      if (aVal < bVal) return this.sortDirection === 'asc' ? -1 : 1;
+      if (aVal > bVal) return this.sortDirection === 'asc' ? 1 : -1;
+      return 0;
+    });
+  }
+
+  sort(column: string): void {
+    if (this.sortColumn === column) {
+      this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
+    } else {
+      this.sortColumn = column;
+      this.sortDirection = 'asc';
+    }
+  }
+
+  getSortArrow(column: string): string {
+    if (this.sortColumn !== column) return '';
+    return this.sortDirection === 'asc' ? '▲' : '▼';
   }
 
   supprimerAIModel(model: AIModel) {

@@ -10,6 +10,7 @@ import { aimodelGuard } from './aimodel-guard';
 import { ListeOpenStates } from './liste-openstates/liste-openstates';
 
 export const routes: Routes = [
+    { path: "", redirectTo: "/aiModels", pathMatch: "full" }, 
     { path: "aiModels", component: AIModels },
     { path: "add-ai-model", component: AddAIModelComponent, canActivate: [aimodelGuard] },
     { path: "updateAIModel/:id", component: UpdateAIModel, canActivate: [aimodelGuard] },
@@ -18,6 +19,5 @@ export const routes: Routes = [
     { path: 'login', component: Login },
     { path: 'app-forbidden', component: Forbidden },
     { path: "liste-openstates", component: ListeOpenStates, canActivate: [aimodelGuard] },
-    { path: "", redirectTo: "aiModels", pathMatch: "full" },
-    { path: "**", redirectTo: "aiModels" }
+    { path: "**", redirectTo: "" }
 ];
