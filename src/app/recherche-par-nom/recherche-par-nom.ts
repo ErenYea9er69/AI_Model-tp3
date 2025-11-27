@@ -4,17 +4,15 @@ import { AIModelService } from '../services/ai';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-import { SearchFilterPipe } from '../search-filter-pipe';
 
 @Component({
   selector: 'app-recherche-par-nom',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterLink, SearchFilterPipe],
+  imports: [CommonModule, FormsModule, RouterLink],
   templateUrl: './recherche-par-nom.html',
   styles: ``
 })
 export class RechercheParNom implements OnInit {
-  nomAI!: string;
   allAImodels: AIModel[] = [];
   aiModels: AIModel[] = [];
   searchTerm: string = '';
@@ -48,7 +46,7 @@ export class RechercheParNom implements OnInit {
     if (conf && model.idModel) {
       this.AIModelService.supprimerAIModel(model).subscribe({
         next: () => {
-          this.loadAllAIModels(); // Recharger la liste
+          this.loadAllAIModels();
         },
         error: (err) => {
           console.error('Erreur suppression:', err);

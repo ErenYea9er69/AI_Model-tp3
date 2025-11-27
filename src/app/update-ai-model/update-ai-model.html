@@ -3,90 +3,70 @@
         <h2>Modifier un Modèle IA :</h2>
     </div>
     <form [formGroup]="myAI">
-        <div  class="col-sm-2 col-md-2 col-lg-2">
+        <div class="col-sm-2 col-md-2 col-lg-2">
             <label>ID Modèle</label>
-            <input readonly type="text" [(ngModel)]="currentAIModel.idModel" name="idModel" class="form-control" formControlName="idModel">
+            <input readonly type="text" formControlName="idModel" class="form-control">
         </div>
 
         <div class="col-sm-4 col-md-4 col-lg-4">
             <label>Nom Modèle</label>
-            <input type="text" [(ngModel)]="currentAIModel.name" name="name" class="form-control" formControlName="name">
+            <input type="text" formControlName="name" class="form-control">
         </div>
         @if (myAI.controls['name'].hasError('required') && myAI.controls['name'].touched) {
-            <span class="text-danger">
-                Nom Modèle est obligatoire
-            </span>
+            <span class="text-danger">Nom Modèle est obligatoire</span>
         }
         @if (myAI.controls['name'].hasError('minlength') && myAI.controls['name'].touched) {
-            <span class="text-danger">
-                Nom Modèle doit contenir au moins 3 caractères
-            </span>
+            <span class="text-danger">Nom Modèle doit contenir au moins 5 caractères</span>
         }
 
         <div class="col-sm-2 col-md-2 col-lg-2">
             <label>Version</label>
-            <input type="text" [(ngModel)]="currentAIModel.version" name="version" class="form-control" formControlName="version">
+            <input type="text" formControlName="version" class="form-control">
         </div>
         @if (myAI.controls['version'].hasError('required') && myAI.controls['version'].touched) {
-            <span class="text-danger">
-                Version est obligatoire
-            </span>
+            <span class="text-danger">Version est obligatoire</span>
         }
 
         <div class="col-sm-2 col-md-2 col-lg-2">
             <label>Accuracy</label>
-            <input type="number" step="0.01" [(ngModel)]="currentAIModel.accuracy" name="accuracy" class="form-control" formControlName="accuracy">
+            <input type="number" step="0.01" formControlName="accuracy" class="form-control">
         </div>
         @if (myAI.controls['accuracy'].hasError('required') && myAI.controls['accuracy'].touched) {
-            <span class="text-danger">
-                Accuracy est obligatoire
-            </span>
+            <span class="text-danger">Accuracy est obligatoire</span>
         }
         @if (myAI.controls['accuracy'].hasError('min') && myAI.controls['accuracy'].touched) {
-            <span class="text-danger">
-                Accuracy doit être au moins 10
-            </span>
+            <span class="text-danger">Accuracy doit être au moins 10</span>
         }
 
         <div class="col-sm-4 col-md-4 col-lg-4">
             <label>Date d'entraînement</label>
-            <input type="date" [ngModel]="currentAIModel.trainingDate | date: 'yyyy-MM-dd'"
-                (ngModelChange)="currentAIModel.trainingDate= $event" name="trainingDate" class="form-control" formControlName="trainingDate">
+            <input type="date" formControlName="trainingDate" class="form-control">
         </div>
         @if (myAI.controls['trainingDate'].hasError('required') && myAI.controls['trainingDate'].touched) {
-            <span class="text-danger">
-                Date d'entraînement est obligatoire
-            </span>
+            <span class="text-danger">Date d'entraînement est obligatoire</span>
         }
 
         <div class="col-sm-4 col-md-4 col-lg-4">
             <label>Email</label>
-            <input type="email" [(ngModel)]="currentAIModel.email" name="email" class="form-control" formControlName="email">
+            <input type="email" formControlName="email" class="form-control">
         </div>
         @if (myAI.controls['email'].hasError('required') && myAI.controls['email'].touched) {
-            <span class="text-danger">
-                Email est obligatoire
-            </span>
+            <span class="text-danger">Email est obligatoire</span>
         }
         @if (myAI.controls['email'].hasError('email') && myAI.controls['email'].touched) {
-            <span class="text-danger">
-                Email non valide
-            </span>
+            <span class="text-danger">Email non valide</span>
         }
 
         <div class="col-sm-4 col-md-4 col-lg-4">
             <label>Openstate</label>
-            <select class="form-control form-control-lg" id="idCat" name="idCat" [(ngModel)]="updatedCatId" formControlName="idCat">
-                @for(cat of categories; track cat.idstate)
-                {
+            <select class="form-control form-control-lg" formControlName="idCat">
+                @for(cat of categories; track cat.idstate) {
                 <option [value]="cat.idstate"> {{cat.nomstate}} </option>
                 }
             </select>
         </div>
         @if (myAI.controls['idCat'].hasError('required') && myAI.controls['idCat'].touched) {
-            <span class="text-danger">
-                Openstate est obligatoire
-            </span>
+            <span class="text-danger">Openstate est obligatoire</span>
         }
 
         <div class="mt-2">

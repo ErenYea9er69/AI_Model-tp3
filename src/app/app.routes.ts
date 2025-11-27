@@ -19,5 +19,5 @@ export const routes: Routes = [
     { path: 'app-forbidden', component: Forbidden },
     { path: "liste-openstates", component: ListeOpenStates, canActivate: [aimodelGuard] },
     { path: "", redirectTo: "aiModels", pathMatch: "full" },
-    { path: "**", redirectTo: "aiModels" } // Fallback route
+    { path: "**", redirectTo: "aiModels" }
 ];

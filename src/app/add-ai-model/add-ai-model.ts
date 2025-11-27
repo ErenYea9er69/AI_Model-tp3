@@ -13,11 +13,9 @@ import { CommonModule } from '@angular/common';
   templateUrl: './add-ai-model.html',
 })
 export class AddAIModelComponent implements OnInit {
-  newAIModel: AIModel = new AIModel();
-  categories!: OpenState[];
-  newIdCat!: number;
-  message: string = '';
   myAI!: FormGroup;
+  categories: OpenState[] = [];
+  message: string = '';
 
   constructor(
     private aiModelService: AIModelService, 
@@ -26,8 +24,11 @@ export class AddAIModelComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.initializeForm();
     this.loadOpenStates();
-    
+  }
+
+  initializeForm(): void {
     this.myAI = this.formBuilder.group({
       idModel: ['', [Validators.required]],
       name: ['', [Validators.required, Validators.minLength(5)]],
@@ -42,7 +43,7 @@ export class AddAIModelComponent implements OnInit {
   loadOpenStates(): void {
     this.aiModelService.listestate().subscribe({
       next: (data) => {
-        this.categories = data;
+        this.categories = data || [];
       },
       error: (err) => {
         console.error('Erreur chargement OpenStates:', err);
@@ -52,21 +53,31 @@ export class AddAIModelComponent implements OnInit {
   }
 
   addAIModel() {
-    if (!this.newIdCat) {
-      this.message = "Veuillez sélectionner un OpenState";
-      return;
-    }
-
     if (this.myAI.invalid) {
       this.message = "Veuillez corriger les erreurs du formulaire";
       return;
     }
 
-    this.aiModelService.consulterCategorie(this.newIdCat).subscribe({
+    const formValue = this.myAI.value;
+    const newAIModel = new AIModel({
+      idModel: formValue.idModel,
+      name: formValue.name,
+      version: formValue.version,
+      accuracy: formValue.accuracy,
+      trainingDate: new Date(formValue.trainingDate),
+      email: formValue.email
+    });
+
+    if (!formValue.idCat) {
+      this.message = "Veuillez sélectionner un OpenState";
+      return;
+    }
+
+    this.aiModelService.consulterCategorie(formValue.idCat).subscribe({
       next: (state) => {
-        this.newAIModel.openstate = state; // Fixed: OpenState -> openstate
+        newAIModel.openstate = state;
         
-        this.aiModelService.ajouterAIModel(this.newAIModel).subscribe({
+        this.aiModelService.ajouterAIModel(newAIModel).subscribe({
           next: (addedModel) => {
             this.message = "Modèle " + addedModel.name + " ajouté avec succès !";
             setTimeout(() => {

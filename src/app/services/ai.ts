@@ -70,7 +70,10 @@ export class AIModelService {
   listestate(): Observable<OpenState[]> {
     return this.http.get<OpenStateWrapper>(`${this.apiURL}/openStates`, this.httpOptions)
       .pipe(
-        map(wrapper => wrapper._embedded?.openStates || []),
+        map(wrapper => {
+          console.log('OpenState wrapper response:', wrapper);
+          return wrapper._embedded?.openStates || [];
+        }),
         catchError(this.handleError)
       );
   }
@@ -104,7 +107,7 @@ export class AIModelService {
   }
 
   private handleError(error: any): Observable<never> {
-    console.error('An error occurred:', error);
+    console.error('HTTP Error:', error);
     return throwError(() => new Error(error.message || 'Server error'));
   }
 }

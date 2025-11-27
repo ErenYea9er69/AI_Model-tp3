@@ -7,7 +7,7 @@ export class AIModel {
   trainingDate?: Date;
   email?: string;
   accuracy?: number;
-  openstate!: OpenState; // Changed from OpenState to openstate
+  openstate?: OpenState; // Changed from ! to ?
 
   constructor(data?: any) {
     if (data) {
