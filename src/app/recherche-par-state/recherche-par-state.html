@@ -38,7 +38,7 @@
             <td>{{model.trainingDate | date:'dd/MM/yyyy'}}</td>
             <td>{{model.accuracy}}</td>
             <td>{{model.email}}</td>
-            <td>{{model.OpenState?.nomstate}}</td>
+            <td>{{model.openstate?.nomstate}}</td> <!-- Fixed: OpenState -> openstate -->
             <td>
               <a class="btn btn-danger" (click)="supprimerAIModel(model)"
                 >Supprimer</a

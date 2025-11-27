@@ -5,8 +5,6 @@
         <tr> <th>N°</th><th>Id</th><th>Name</th> <th>Version</th>  <th>Training Date</th> <th>Accuracy</th>  <th>Email</th>  <th>Openstate</th> </tr>          
          @for (model of aiModels; track model.idModel; let index =$index; let nbr=$count; let first = $first; let last = $last)
          {
-
-         
           <tbody >
             <tr >
                <td>{{index}}</td>
@@ -16,11 +14,11 @@
                <td>{{model.trainingDate | date:'dd/MM/yyyy'}}</td>
                <td>{{model.accuracy}}</td>
                <td>{{model.email}}</td>
-               <td>{{model.OpenState?.nomstate}}</td>
+               <td>{{model.openstate?.nomstate}}</td> <!-- Fixed: OpenState -> openstate -->
                @if(authService.isAdmin()) {
-
                <td><a class="btn btn-danger" (click)="supprimerAIModel(model)">Supprimer</a></td>
-               <td><a class="btn btn-success" [routerLink]="['/updateAIModel',model.idModel]">Modifier</a></td>}
+               <td><a class="btn btn-success" [routerLink]="['/updateAIModel',model.idModel]">Modifier</a></td>
+               }
              </tr>                                    
           </tbody>
          }

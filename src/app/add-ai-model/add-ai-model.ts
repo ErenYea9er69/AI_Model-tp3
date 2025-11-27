@@ -30,7 +30,7 @@ export class AddAIModelComponent implements OnInit {
     
     this.myAI = this.formBuilder.group({
       idModel: ['', [Validators.required]],
-      name: ['', [Validators.required, Validators.minLength(5)]], // Fixed to match HTML error message
+      name: ['', [Validators.required, Validators.minLength(5)]],
       version: ['', [Validators.required]],
       accuracy: ['', [Validators.required, Validators.min(10)]],
       trainingDate: ['', [Validators.required]],
@@ -64,7 +64,7 @@ export class AddAIModelComponent implements OnInit {
 
     this.aiModelService.consulterCategorie(this.newIdCat).subscribe({
       next: (state) => {
-        this.newAIModel.OpenState = state;
+        this.newAIModel.openstate = state; // Fixed: OpenState -> openstate
         
         this.aiModelService.ajouterAIModel(this.newAIModel).subscribe({
           next: (addedModel) => {

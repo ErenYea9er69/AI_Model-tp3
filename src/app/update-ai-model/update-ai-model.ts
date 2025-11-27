@@ -52,7 +52,7 @@ export class UpdateAIModel implements OnInit {
     this.aiModelService.consulterAIModel(+id).subscribe({
       next: (model) => {
         this.currentAIModel = model;
-        this.updatedCatId = this.currentAIModel.OpenState?.idstate || 0;
+        this.updatedCatId = this.currentAIModel.openstate?.idstate || 0; // Fixed: OpenState -> openstate
         this.initializeForm();
       },
       error: (err) => {
@@ -96,7 +96,7 @@ export class UpdateAIModel implements OnInit {
 
     this.aiModelService.consulterCategorie(this.updatedCatId).subscribe({
       next: (state) => {
-        this.currentAIModel.OpenState = state;
+        this.currentAIModel.openstate = state; // Fixed: OpenState -> openstate
         
         this.aiModelService.updateAIModel(this.currentAIModel).subscribe({
           next: (updatedModel) => {
