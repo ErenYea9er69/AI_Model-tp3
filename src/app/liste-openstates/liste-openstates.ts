@@ -11,8 +11,8 @@ import { CommonModule } from '@angular/common';
   templateUrl: './liste-openstates.html',
 })
 export class ListeOpenStates implements OnInit {
-  openStates!: OpenState[];
-  updatedOpenState: OpenState = {idstate: 0, nomstate: ""};
+  openStates: OpenState[] = [];
+  updatedOpenState: OpenState = { idstate: 0, nomstate: "" };
   ajout: boolean = true;
 
   constructor(private aiModelService: AIModelService) {}
@@ -21,24 +21,42 @@ export class ListeOpenStates implements OnInit {
     this.chargerOpenStates();
   }
 
-  chargerOpenStates() {
-    this.openStates = this.aiModelService.listestate();
+  chargerOpenStates(): void {
+    this.aiModelService.listestate().subscribe({
+      next: (data) => {
+        this.openStates = data;
+      },
+      error: (err) => {
+        console.error('Erreur chargement OpenStates:', err);
+      }
+    });
   }
 
   openStateUpdated(openState: OpenState) {
     console.log('OpenState updated event', openState);
-    if (this.ajout) {
-      this.aiModelService.ajouterOpenState(openState);
-    } else {
-      this.aiModelService.updateOpenState(openState);
-    }
-    this.chargerOpenStates();
-    this.updatedOpenState = {idstate: 0, nomstate: ""};
+    
+    const operation = this.ajout 
+      ? this.aiModelService.ajouterOpenState(openState)
+      : this.aiModelService.updateOpenState(openState);
+
+    operation.subscribe({
+      next: () => {
+        this.chargerOpenStates();
+        this.resetForm();
+      },
+      error: (err) => {
+        console.error('Erreur sauvegarde OpenState:', err);
+      }
+    });
+  }
+
+  resetForm(): void {
+    this.updatedOpenState = { idstate: 0, nomstate: "" };
     this.ajout = true;
   }
 
   updateOpenState(openState: OpenState) {
-    this.updatedOpenState = openState;
+    this.updatedOpenState = { ...openState };
     this.ajout = false;
   }
 }

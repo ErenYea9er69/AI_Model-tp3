@@ -7,5 +7,11 @@ export class AIModel {
   trainingDate?: Date;
   email?: string;
   accuracy?: number;
-  OpenState! : OpenState;
+  OpenState!: OpenState;
+
+  constructor(data?: any) {
+    if (data) {
+      Object.assign(this, data);
+    }
+  }
 }

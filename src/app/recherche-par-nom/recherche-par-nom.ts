@@ -14,30 +14,46 @@ import { SearchFilterPipe } from '../search-filter-pipe';
   styles: ``
 })
 export class RechercheParNom implements OnInit {
-
   nomAI!: string;
-  allAImodels!: AIModel[];
-  aiModels!: AIModel[];
-  searchTerm! : string; 
+  allAImodels: AIModel[] = [];
+  aiModels: AIModel[] = [];
+  searchTerm: string = '';
 
   constructor(private AIModelService: AIModelService) {}
 
   ngOnInit(): void {
-    this.allAImodels = this.AIModelService.listeAIModels();
+    this.loadAllAIModels();
+  }
+
+  loadAllAIModels(): void {
+    this.AIModelService.listeAIModels().subscribe({
+      next: (data) => {
+        this.allAImodels = data;
+        this.aiModels = data;
+      },
+      error: (err) => {
+        console.error('Erreur chargement modèles:', err);
+      }
+    });
   }
 
   onKeyUp(filterText: string) {
     this.aiModels = this.allAImodels.filter(item =>
-      item.name!.toLowerCase().includes(filterText.toLowerCase())
+      item.name?.toLowerCase().includes(filterText.toLowerCase())
     );
   }
 
   supprimerAIModel(model: AIModel) {
-    let conf = confirm('Etes-vous sûr ?');
-    if (conf) {
-      this.AIModelService.supprimerAIModel(model);
-      this.allAImodels = this.AIModelService.listeAIModels();
-      this.aiModels = this.allAImodels;
+    let conf = confirm('Êtes-vous sûr ?');
+    if (conf && model.idModel) {
+      this.AIModelService.supprimerAIModel(model).subscribe({
+        next: () => {
+          this.loadAllAIModels(); // Recharger la liste
+        },
+        error: (err) => {
+          console.error('Erreur suppression:', err);
+        }
+      });
     }
   }
 }

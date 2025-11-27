@@ -10,15 +10,14 @@ import { aimodelGuard } from './aimodel-guard';
 import { ListeOpenStates } from './liste-openstates/liste-openstates';
 
 export const routes: Routes = [
-    {path: "aiModels", component : AIModels},
-    {path: "add-ai-model", component : AddAIModelComponent, canActivate: [aimodelGuard]},
-    {path: "updateAIModel/:id", component: UpdateAIModel},
-    {path: "rechercheParOpenstate", component: RechercheParState },
-    {path: "rechercheParNom", component : RechercheParNom},
-    {path: 'login', component: Login},
-    {path: 'app-forbidden', component: Forbidden},
-    {path: "liste-openstates", component: ListeOpenStates, canActivate: [aimodelGuard]},
-
-
-    {path: "", redirectTo: "aiModels", pathMatch: "full"}
+    { path: "aiModels", component: AIModels },
+    { path: "add-ai-model", component: AddAIModelComponent, canActivate: [aimodelGuard] },
+    { path: "updateAIModel/:id", component: UpdateAIModel, canActivate: [aimodelGuard] },
+    { path: "rechercheParOpenstate", component: RechercheParState },
+    { path: "rechercheParNom", component: RechercheParNom },
+    { path: 'login', component: Login },
+    { path: 'app-forbidden', component: Forbidden },
+    { path: "liste-openstates", component: ListeOpenStates, canActivate: [aimodelGuard] },
+    { path: "", redirectTo: "aiModels", pathMatch: "full" },
+    { path: "**", redirectTo: "aiModels" } // Fallback route
 ];

@@ -13,45 +13,104 @@ import { OpenState } from '../model/OpenState.model';
   templateUrl: './update-ai-model.html',
 })
 export class UpdateAIModel implements OnInit {
-
-  categories! : OpenState[];
-  updatedCatId! : number;
+  categories!: OpenState[];
+  updatedCatId!: number;
   currentAIModel = new AIModel();
   myAI!: FormGroup;
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private router :Router,
+    private router: Router,
     private aiModelService: AIModelService,
     private formBuilder: FormBuilder
   ) {}
 
-  ngOnInit() {
-    this.categories = this.aiModelService.listestate();
+  ngOnInit(): void {
+    this.loadOpenStates();
+    this.loadCurrentModel();
+  }
 
-    this.currentAIModel = this.aiModelService.consulterAIModel(
-    this.activatedRoute.snapshot.params['id']);
-    this.updatedCatId=this.currentAIModel.OpenState.idstate;
-
-    this.myAI = this.formBuilder.group({
-      idModel: [{value: '', disabled: true}, [Validators.required]],
-      name: ['', [Validators.required, Validators.minLength(5)]],
-      version: ['', [Validators.required]],
-      accuracy: ['', [Validators.required , Validators.min(10)]],
-      trainingDate: ['', [Validators.required]],
-      email: ['', [Validators.required, Validators.email]],
-      idCat: ['', [Validators.required]]
+  loadOpenStates(): void {
+    this.aiModelService.listestate().subscribe({
+      next: (data) => {
+        this.categories = data;
+      },
+      error: (err) => {
+        console.error('Erreur chargement OpenStates:', err);
+      }
     });
+  }
 
-    console.log(this.currentAIModel);
+  loadCurrentModel(): void {
+    const id = this.activatedRoute.snapshot.params['id'];
+    if (!id) {
+      console.error('No ID provided in route');
+      this.router.navigate(['/aiModels']);
+      return;
+    }
+
+    this.aiModelService.consulterAIModel(+id).subscribe({
+      next: (model) => {
+        this.currentAIModel = model;
+        this.updatedCatId = this.currentAIModel.OpenState?.idstate || 0;
+        this.initializeForm();
+      },
+      error: (err) => {
+        console.error('Erreur chargement modèle:', err);
+        this.router.navigate(['/aiModels']);
+      }
+    });
+  }
+
+  initializeForm(): void {
+    this.myAI = this.formBuilder.group({
+      idModel: [{ value: this.currentAIModel.idModel || '', disabled: true }, [Validators.required]],
+      name: [this.currentAIModel.name || '', [Validators.required, Validators.minLength(5)]],
+      version: [this.currentAIModel.version || '', [Validators.required]],
+      accuracy: [this.currentAIModel.accuracy || '', [Validators.required, Validators.min(10)]],
+      trainingDate: [this.formatDate(this.currentAIModel.trainingDate) || '', [Validators.required]],
+      email: [this.currentAIModel.email || '', [Validators.required, Validators.email]],
+      idCat: [this.updatedCatId || '', [Validators.required]]
+    });
+  }
+
+  formatDate(date: Date | undefined): string {
+    if (!date) return '';
+    const d = new Date(date);
+    const month = '' + (d.getMonth() + 1);
+    const day = '' + d.getDate();
+    const year = d.getFullYear();
+    return [year, month.padStart(2, '0'), day.padStart(2, '0')].join('-');
   }
 
   updateAIModel() {
-    this.currentAIModel.OpenState=this.aiModelService.consulterCategorie(this.updatedCatId);
-
-    if (this.myAI.valid) {
-      this.aiModelService.updateAIModel(this.currentAIModel);
-      this.router.navigate(['aiModels']);
+    if (!this.updatedCatId) {
+      console.error('OpenState ID requis');
+      return;
     }
+
+    if (this.myAI.invalid) {
+      console.error('Formulaire invalide');
+      return;
+    }
+
+    this.aiModelService.consulterCategorie(this.updatedCatId).subscribe({
+      next: (state) => {
+        this.currentAIModel.OpenState = state;
+        
+        this.aiModelService.updateAIModel(this.currentAIModel).subscribe({
+          next: (updatedModel) => {
+            console.log('Modèle mis à jour:', updatedModel);
+            this.router.navigate(['/aiModels']);
+          },
+          error: (err) => {
+            console.error('Erreur modification:', err);
+          }
+        });
+      },
+      error: (err) => {
+        console.error('Erreur chargement OpenState:', err);
+      }
+    });
   }
 }
