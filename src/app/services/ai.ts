@@ -120,7 +120,7 @@ export class AIModelService {
   }
 
   supprimerAIModel(model: AIModel) {
-    const index = this.aiModels.indexOf(model, 0);
+    const index = this.aiModels.findIndex((m) => m.idModel === model.idModel);
     if (index > -1) {
       this.aiModels.splice(index, 1);
     }
@@ -132,10 +132,9 @@ export class AIModelService {
   }
 
   updateAIModel(model: AIModel) {
-    const index = this.aiModels.indexOf(model, 0);
+    const index = this.aiModels.findIndex((m) => m.idModel === model.idModel);
     if (index > -1) {
-      this.aiModels.splice(index, 1);
-      this.aiModels.splice(index, 0, model);
+      this.aiModels[index] = model;
     }
   }
 
@@ -147,15 +146,8 @@ export class AIModelService {
     return this.OpenStates.find(cat => cat.idstate == id)!;
   }
 
-  rechercherParCategorie(IdS: number): AIModel[]{
-    this.aiModelrecherche = [] ;
-    this.aiModels.forEach((cur, index) => {
-      if(IdS == cur.OpenState.idstate) {
-        console.log("cur "+ cur);
-        this.aiModelrecherche.push(cur);
-      }
-    });
-    return this.aiModelrecherche;
+  rechercherParCategorie(IdS: number): AIModel[] {
+    return this.aiModels.filter((model) => model.OpenState.idstate == IdS);
   }
 
   ajouterOpenState(model: OpenState): void {
@@ -165,15 +157,14 @@ export class AIModelService {
   }
 
   updateOpenState(model: OpenState): void {
-    const index = this.OpenStates.indexOf(model, 0);
+    const index = this.OpenStates.findIndex((s) => s.idstate === model.idstate);
     if (index > -1) {
-      this.OpenStates.splice(index, 1);
-      this.OpenStates.splice(index, 0, model);
+      this.OpenStates[index] = model;
     }
   }
 
   supprimerOpenState(model: OpenState): void {
-    const index = this.OpenStates.indexOf(model, 0);
+    const index = this.OpenStates.findIndex((s) => s.idstate === model.idstate);
     if (index > -1) {
       this.OpenStates.splice(index, 1);
     }

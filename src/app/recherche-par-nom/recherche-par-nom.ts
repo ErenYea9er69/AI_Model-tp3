@@ -4,12 +4,11 @@ import { AIModelService } from '../services/ai';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-import { SearchFilterPipe } from '../search-filter-pipe';
 
 @Component({
   selector: 'app-recherche-par-nom',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterLink, SearchFilterPipe],
+  imports: [CommonModule, FormsModule, RouterLink],
   templateUrl: './recherche-par-nom.html',
   styles: ``
 })
@@ -24,6 +23,7 @@ export class RechercheParNom implements OnInit {
 
   ngOnInit(): void {
     this.allAImodels = this.AIModelService.listeAIModels();
+    this.aiModels = this.allAImodels;
   }
 
   onKeyUp(filterText: string) {

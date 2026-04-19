@@ -16,7 +16,7 @@
                <td>{{model.trainingDate | date:'dd/MM/yyyy'}}</td>
                <td>{{model.accuracy}}</td>
                <td>{{model.email}}</td>
-               <td>{{model.OpenState?.nomstate}}</td>
+               <td>{{model.OpenState.nomstate}}</td>
                @if(authService.isAdmin()) {
 
                <td><a class="btn btn-danger" (click)="supprimerAIModel(model)">Supprimer</a></td>

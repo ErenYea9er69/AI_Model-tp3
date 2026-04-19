@@ -42,12 +42,21 @@ export class AddAIModelComponent implements OnInit {
   }
 
   addAIModel() {
-    this.newCategorie = this.aiModelService.consulterCategorie(this.newIdCat);
-    this.newAIModel.OpenState = this.newCategorie;
-    
     if (this.myAI.valid) {
-      this.aiModelService.ajouterAIModel(this.newAIModel);
-      this.message = "Modèle " + this.newAIModel.name + " ajouté avec succès !";
+      const formValues = this.myAI.value;
+      
+      const newAIModel: AIModel = {
+        idModel: formValues.idModel,
+        name: formValues.name,
+        version: formValues.version,
+        accuracy: formValues.accuracy,
+        trainingDate: new Date(formValues.trainingDate),
+        email: formValues.email,
+        OpenState: this.aiModelService.consulterCategorie(formValues.idCat)
+      };
+
+      this.aiModelService.ajouterAIModel(newAIModel);
+      this.message = "Modèle " + newAIModel.name + " ajouté avec succès !";
       this.router.navigate(['/aiModels']);
     }
   }

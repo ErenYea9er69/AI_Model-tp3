@@ -29,28 +29,36 @@ export class UpdateAIModel implements OnInit {
   ngOnInit() {
     this.categories = this.aiModelService.listestate();
 
-    this.currentAIModel = this.aiModelService.consulterAIModel(
-    this.activatedRoute.snapshot.params['id']);
-    this.updatedCatId=this.currentAIModel.OpenState.idstate;
+    const id = this.activatedRoute.snapshot.params['id'];
+    this.currentAIModel = this.aiModelService.consulterAIModel(id);
+    this.updatedCatId = this.currentAIModel.OpenState.idstate;
 
     this.myAI = this.formBuilder.group({
-      idModel: [{value: '', disabled: true}, [Validators.required]],
-      name: ['', [Validators.required, Validators.minLength(5)]],
-      version: ['', [Validators.required]],
-      accuracy: ['', [Validators.required , Validators.min(10)]],
-      trainingDate: ['', [Validators.required]],
-      email: ['', [Validators.required, Validators.email]],
-      idCat: ['', [Validators.required]]
+      idModel: [{ value: this.currentAIModel.idModel, disabled: true }, [Validators.required]],
+      name: [this.currentAIModel.name, [Validators.required, Validators.minLength(5)]],
+      version: [this.currentAIModel.version, [Validators.required]],
+      accuracy: [this.currentAIModel.accuracy, [Validators.required, Validators.min(10)]],
+      trainingDate: [
+        new Date(this.currentAIModel.trainingDate!).toISOString().split('T')[0],
+        [Validators.required],
+      ],
+      email: [this.currentAIModel.email, [Validators.required, Validators.email]],
+      idCat: [this.updatedCatId, [Validators.required]],
     });
-
-    console.log(this.currentAIModel);
   }
 
   updateAIModel() {
-    this.currentAIModel.OpenState=this.aiModelService.consulterCategorie(this.updatedCatId);
-
     if (this.myAI.valid) {
-      this.aiModelService.updateAIModel(this.currentAIModel);
+      const formValues = this.myAI.getRawValue();
+      
+      const updatedModel: AIModel = {
+        ...this.currentAIModel,
+        ...formValues,
+        trainingDate: new Date(formValues.trainingDate),
+        OpenState: this.aiModelService.consulterCategorie(formValues.idCat)
+      };
+
+      this.aiModelService.updateAIModel(updatedModel);
       this.router.navigate(['aiModels']);
     }
   }
