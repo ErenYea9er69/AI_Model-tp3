@@ -1,82 +1,46 @@
 import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
 import { AIModel } from '../model/ai.model';
 import { AICategory } from "../model/AICategory.model";
+
+import { environment } from '../../environments/environment';
+
+const httpOptions = {
+  headers: new HttpHeaders( {'Content-Type': 'application/json'} )
+};
 
 @Injectable({
   providedIn: 'root',
 })
 export class AIModelService {
-  aiModels: AIModel[];
-  categories: AICategory[];
-  aiModel!: AIModel;
+  apiURL: string = environment.apiURL;
 
-  constructor() {
-    this.categories = [
-      { idCat: 1, nomCat: "Open-source" },
-      { idCat: 2, nomCat: "Close-source" }
-    ];
+  constructor(private http : HttpClient) { }
 
-    this.aiModels = [
-      {
-        idAI: 1,
-        nomAI: "GPT-4",
-        prixAI: 2500.5,
-        dateCreation: new Date("01/14/2024"),
-        aiCategory: { idCat: 2, nomCat: "Close-source" }
-      },
-      {
-        idAI: 2,
-        nomAI: "Claude 3.5",
-        prixAI: 2200.0,
-        dateCreation: new Date("12/17/2023"),
-        aiCategory: { idCat: 2, nomCat: "Close-source" }
-      },
-      {
-        idAI: 3,
-        nomAI: "Mistral 7B",
-        prixAI: 0.0,
-        dateCreation: new Date("02/20/2024"),
-        aiCategory: { idCat: 1, nomCat: "Open-source" }
-      }
-    ];
+  listeAIModels(): Observable<AIModel[]> {
+    return this.http.get<AIModel[]>(this.apiURL);
   }
 
-  listeAIModels(): AIModel[] {
-    return this.aiModels;
+  ajouterAIModel(model: AIModel): Observable<AIModel> {
+    return this.http.post<AIModel>(this.apiURL, model, httpOptions);
   }
 
-  ajouterAIModel(model: AIModel) {
-    this.aiModels.push(model);
+  supprimerAIModel(id : number) {
+    const url = `${this.apiURL}/${id}`;
+    return this.http.delete(url, httpOptions);
   }
 
-  supprimerAIModel(model: AIModel) {
-    const index = this.aiModels.findIndex((m) => m.idAI === model.idAI);
-    if (index > -1) {
-      this.aiModels.splice(index, 1);
-    }
+  consulterAIModel(id: number): Observable<AIModel> {
+    const url = `${this.apiURL}/${id}`;
+    return this.http.get<AIModel>(url);
   }
 
-  consulterAIModel(id: number): AIModel {
-    this.aiModel = this.aiModels.find((m) => m.idAI == id)!;
-    return this.aiModel;
+  updateAIModel(model: AIModel): Observable<AIModel> {
+    return this.http.put<AIModel>(this.apiURL, model, httpOptions);
   }
 
-  updateAIModel(model: AIModel) {
-    const index = this.aiModels.findIndex((m) => m.idAI === model.idAI);
-    if (index > -1) {
-      this.aiModels[index] = model;
-    }
-  }
-
-  listeCategories(): AICategory[] {
-    return this.categories;
-  }
-
-  consulterCategorie(id: number): AICategory {
-    return this.categories.find(cat => cat.idCat == id)!;
-  }
-
-  rechercherParCategorie(idCat: number): AIModel[] {
-    return this.aiModels.filter((model) => model.aiCategory?.idCat == idCat);
+  listeCategories(): Observable<AICategory[]> {
+    return this.http.get<AICategory[]>(this.apiURL + "/cat");
   }
 }

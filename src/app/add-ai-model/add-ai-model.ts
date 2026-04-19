@@ -16,18 +16,21 @@ export class AddAIModelComponent implements OnInit {
   newAIModel = new AIModel();
   categories! : AICategory[];
   newIdCat! : number;
-  newAICategory! : AICategory;
 
   constructor(private aiModelService: AIModelService, private router: Router) {}
 
   ngOnInit() {
-    this.categories = this.aiModelService.listeCategories();
+    this.aiModelService.listeCategories().subscribe(cats => {
+      this.categories = cats;
+      console.log(cats);
+    });
   }
 
   addAIModel() {
-    this.newAICategory = this.aiModelService.consulterCategorie(this.newIdCat);
-    this.newAIModel.aiCategory = this.newAICategory;
-    this.aiModelService.ajouterAIModel(this.newAIModel);
-    this.router.navigate(['ai-models']);
+    this.newAIModel.aiCategory = this.categories.find(cat => cat.idCat == this.newIdCat)!;
+    this.aiModelService.ajouterAIModel(this.newAIModel).subscribe(prod => {
+      console.log(prod);
+      this.router.navigate(['ai-models']);
+    });
   }
 }

@@ -24,14 +24,21 @@ export class UpdateAIModelComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.categories = this.aiModelService.listeCategories();
-    this.currentAIModel = this.aiModelService.consulterAIModel(this.activatedRoute.snapshot.params['id']);
-    this.updatedCatId = this.currentAIModel.aiCategory?.idCat!;
+    this.aiModelService.listeCategories().subscribe(cats => {
+      this.categories = cats;
+      console.log(cats);
+    });
+
+    this.aiModelService.consulterAIModel(this.activatedRoute.snapshot.params['id']).subscribe(prod => {
+      this.currentAIModel = prod;
+      this.updatedCatId = this.currentAIModel.aiCategory?.idCat!;
+    });
   }
 
   updateAIModel() {
-    this.currentAIModel.aiCategory = this.aiModelService.consulterCategorie(this.updatedCatId);
-    this.aiModelService.updateAIModel(this.currentAIModel);
-    this.router.navigate(['ai-models']);
+    this.currentAIModel.aiCategory = this.categories.find(cat => cat.idCat == this.updatedCatId)!;
+    this.aiModelService.updateAIModel(this.currentAIModel).subscribe(() => {
+      this.router.navigate(['ai-models']);
+    });
   }
 }
