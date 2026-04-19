@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { AIModel } from '../model/ai.model';
 import { AICategory } from "../model/AICategory.model";
 import { AICategoryWrapper } from '../model/AICategoryWrapper.model';
+import { Image } from '../model/image.model';
 
 import { environment } from '../../environments/environment';
 
@@ -54,5 +55,17 @@ export class AIModelService {
 
   ajouterCategorie(cat: AICategory): Observable<AICategory> {
     return this.http.post<AICategory>(this.apiURLCat, cat);
+  }
+
+  uploadImage(file: File, filename: string): Observable<Image> {
+    const imageFormData = new FormData();
+    imageFormData.append('image', file, filename);
+    const url = `${this.apiURL + '/image/upload'}`;
+    return this.http.post<Image>(url, imageFormData);
+  }
+
+  loadImage(id: number): Observable<Image> {
+    const url = `${this.apiURL + '/image/get/info'}/${id}`;
+    return this.http.get<Image>(url);
   }
 }

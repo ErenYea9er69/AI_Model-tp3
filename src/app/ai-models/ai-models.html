@@ -1,39 +1,37 @@
 <div class="container">
-  <div class="card shadow mb-4">
-    <div class="card-body">
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th>N°</th>
-            <th>Id</th>
-            <th>Nom</th>
-            <th>Prix</th>
-            <th>Date Création</th>
-            <th>Catégorie</th>
-            @if(authService.isAdmin()) {
-              <th>Actions</th>
-            }
-          </tr>
-        </thead>
-        <tbody>
-          @for (model of aiModels; track model.idAI; let index =$index) {
-          <tr>
-            <td>{{ index + 1 }}</td>
-            <td>{{ model.idAI }}</td>
-            <td>{{ model.nomAI }}</td>
-            <td>{{ model.prixAI }}</td>
-            <td>{{ model.dateCreation | date:'dd/MM/yyyy' }}</td>
-            <td>{{ model.aiCategory?.nomCat }}</td>
-            @if(authService.isAdmin()) {
-            <td>
-              <a class="btn btn-danger" (click)="supprimerAIModel(model)">Supprimer</a>
-              <a class="btn btn-success" [routerLink]="['/updateAIModel', model.idAI]">Modifier</a>
-            </td>
-            }
-          </tr>
-          }
-        </tbody>
-      </table>
+    <div class="card shadow mb-4">
+        <div class="card-body">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Nom</th>
+                        <th>Prix (Accuracy %)</th>
+                        <th>Date Création</th>
+                        <th>Catégorie</th>
+                        <th>Image</th>
+                        <th *ngIf="authService.isAdmin()">Actions</th>
+                    </tr>
+                </thead>
+                <tbody *ngFor="let aiModel of aiModels">
+                    <tr>
+                        <td>{{ aiModel.idAI }}</td>
+                        <td>{{ aiModel.nomAI }}</td>
+                        <td>{{ aiModel.prixAI }}</td>
+                        <td>{{ aiModel.dateCreation | date: "dd/MM/yyyy" }}</td>
+                        <td>{{ aiModel.aiCategory?.nomCat }}</td>
+                        <td>
+                            @if(aiModel.imageStr){
+                                <img class="card-img-top img-responsive" [src]="aiModel.imageStr" style="height: 50px; width: 100px">
+                            }
+                        </td>
+                        <td *ngIf="authService.isAdmin()">
+                            <a class="btn btn-danger" (click)="supprimerAIModel(aiModel)">Supprimer</a>
+                            <a class="btn btn-success" [routerLink]="['/update-ai-model', aiModel.idAI]">Modifier</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
-  </div>
 </div>

@@ -1,36 +1,46 @@
 <div class="container">
-  <div>
-    <h2>Modifier un Modèle IA :</h2>
-  </div>
-  <form>
-    <div class="col-sm-2 col-md-2 col-lg-2">
-      <label>Id Modèle</label>
-      <input readonly type="number" [(ngModel)]="currentAIModel.idAI" name="idAI" class="form-control" />
+    <div>
+        <h2>Modifier un Modèle IA :</h2>
     </div>
-    <div class="col-sm-4 col-md-4 col-lg-4">
-      <label>Nom Modèle</label>
-      <input type="text" [(ngModel)]="currentAIModel.nomAI" name="nomAI" class="form-control" />
-    </div>
-    <div class="col-sm-2 col-md-2 col-lg-2">
-      <label>Prix (Accuracy %)</label>
-      <input type="number" [(ngModel)]="currentAIModel.prixAI" name="prixAI" class="form-control" />
-    </div>
-    <div class="col-sm-4 col-md-4 col-lg-4">
-      <label>Date Création</label>
-      <input type="date" [ngModel]="currentAIModel.dateCreation | date:'yyyy-MM-dd'" (ngModelChange)="currentAIModel.dateCreation = $event" name="dateCreation" class="form-control" />
-    </div>
+    <form>
+        <div class="col-sm-2 col-md-2 col-lg-2">
+            <label>Id Modèle</label>
+            <input readonly type="number" [(ngModel)]="currentAIModel.idAI" name="idAI" class="form-control" />
+        </div>
+        <div class="col-sm-4 col-md-4 col-lg-4">
+            <label>Nom Modèle</label>
+            <input type="text" [(ngModel)]="currentAIModel.nomAI" name="nomAI" class="form-control" />
+        </div>
+        <div class="col-sm-2 col-md-2 col-lg-2">
+            <label>Prix (Accuracy %)</label>
+            <input type="number" [(ngModel)]="currentAIModel.prixAI" name="prixAI" class="form-control" />
+        </div>
+        <div class="col-sm-4 col-md-4 col-lg-4">
+            <label>Date Création</label>
+            <input type="date" [ngModel]="currentAIModel.dateCreation | date: 'yyyy-MM-dd'"
+                (ngModelChange)="currentAIModel.dateCreation = $event" name="dateCreation" class="form-control" />
+        </div>
 
-    <div class="col-sm-4 col-md-4 col-lg-4">
-      <label>Catégorie</label>
-      <select class="form-control form-control-lg" id="idCat" name="idCat" [(ngModel)]="updatedCatId">
-        @for(cat of categories; track cat.idCat){
-        <option [value]="cat.idCat">{{ cat.nomCat }}</option>
-        }
-      </select>
-    </div>
+        <div class="col-sm-4 col-md-4 col-lg-4">
+            <label>Catégorie</label>
+            <select class="form-control form-control-lg" id="idCat" name="idCat" [(ngModel)]="updatedCatId">
+                @for(cat of categories; track cat.idCat){
+                <option [value]="cat.idCat">{{ cat.nomCat }}</option>
+                }
+            </select>
+        </div>
 
-    <div class="mt-2">
-      <button type="submit" (click)="updateAIModel()" class="btn btn-success">Modifier</button>
-    </div>
-  </form>
+        <div class="col-sm-12 col-md-12 col-lg-12 mt-2">
+            <label class="mb-2">Image :</label>
+            <input type="file" (change)="onImageUpload($event)" class="form-control">
+        </div>
+
+        <div class="col-sm-12 col-md-12 col-lg-12 mt-2">
+            <img [src]="myImage" class="card-img-top img-fluid rounded-start" style="width: 500px; height: 300px" />
+        </div>
+
+        <div class="mt-2">
+            <button type="submit" (click)="updateAIModel()" class="btn btn-success">Modifier</button>
+        </div>
+    </form>
 </div>

@@ -26,6 +26,9 @@ public class AIModel {
     @ManyToOne
     private AICategory aiCategory;
 
+    @OneToOne
+    private Image image;
+
     public AIModel(String nomAI, Double prixAI, Date dateCreation, AICategory aiCategory) {
         this.nomAI = nomAI;
         this.prixAI = prixAI;

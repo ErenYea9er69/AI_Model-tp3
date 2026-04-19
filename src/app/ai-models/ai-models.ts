@@ -1,38 +1,44 @@
-import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { AIModel } from '../model/ai.model';
 import { AIModelService } from '../services/ai';
-import { Router, RouterLink } from '@angular/router';
-import { Auth } from '../services/auth';
+import { AuthService } from '../services/auth';
+import { Image } from '../model/image.model';
 
 @Component({
   selector: 'app-ai-models',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [],
   templateUrl: './ai-models.html',
 })
 export class AIModels implements OnInit {
-  aiModels?: AIModel[];
+  aiModels? : AIModel[];
 
-  constructor(private aiModelService: AIModelService, public authService: Auth) {}
+  constructor(private aiModelService: AIModelService, public authService: AuthService) {}
 
   ngOnInit(): void {
     this.chargerAIModels();
   }
 
   chargerAIModels() {
-    this.aiModelService.listeAIModels().subscribe((prods) => {
-      console.log(prods);
+    this.aiModelService.listeAIModels().subscribe(prods => {
       this.aiModels = prods;
+      this.aiModels.forEach((prod) => {
+        if (prod.image) {
+          this.aiModelService.loadImage(prod.image.idImage).subscribe((img: Image) => {
+            prod.imageStr = 'data:' + img.type + ';base64,' + img.image;
+          });
+        }
+      });
     });
   }
 
-  supprimerAIModel(model: AIModel) {
-    let conf = confirm("Etes-vous sûr ?");
-    if (conf)
-      this.aiModelService.supprimerAIModel(model.idAI!).subscribe(() => {
-        console.log("modèle supprimé");
+  supprimerAIModel(p: AIModel) {
+    let conf = confirm('Etes-vous sûr ?');
+    if (conf) {
+      this.aiModelService.supprimerAIModel(p.idAI).subscribe(() => {
+        console.log('Produit supprimé');
         this.chargerAIModels();
       });
+    }
   }
 }
