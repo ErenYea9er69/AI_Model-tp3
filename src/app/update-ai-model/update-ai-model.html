@@ -1,95 +1,36 @@
 <div class="container">
-    <div>
-        <h2>Modifier un Modèle IA :</h2>
+  <div>
+    <h2>Modifier un Modèle IA :</h2>
+  </div>
+  <form>
+    <div class="col-sm-2 col-md-2 col-lg-2">
+      <label>Id Modèle</label>
+      <input readonly type="number" [(ngModel)]="currentAIModel.idAI" name="idAI" class="form-control" />
     </div>
-    <form [formGroup]="myAI">
-        <div class="col-sm-2 col-md-2 col-lg-2">
-            <label>ID Modèle</label>
-            <input readonly type="text" class="form-control" formControlName="idModel">
-        </div>
+    <div class="col-sm-4 col-md-4 col-lg-4">
+      <label>Nom Modèle</label>
+      <input type="text" [(ngModel)]="currentAIModel.nomAI" name="nomAI" class="form-control" />
+    </div>
+    <div class="col-sm-2 col-md-2 col-lg-2">
+      <label>Prix (Accuracy %)</label>
+      <input type="number" [(ngModel)]="currentAIModel.prixAI" name="prixAI" class="form-control" />
+    </div>
+    <div class="col-sm-4 col-md-4 col-lg-4">
+      <label>Date Création</label>
+      <input type="date" [ngModel]="currentAIModel.dateCreation | date:'yyyy-MM-dd'" (ngModelChange)="currentAIModel.dateCreation = $event" name="dateCreation" class="form-control" />
+    </div>
 
-        <div class="col-sm-4 col-md-4 col-lg-4">
-            <label>Nom Modèle</label>
-            <input type="text" class="form-control" formControlName="name">
-        </div>
-        @if (myAI.controls['name'].hasError('required') && myAI.controls['name'].touched) {
-            <span class="text-danger">
-                Nom Modèle est obligatoire
-            </span>
+    <div class="col-sm-4 col-md-4 col-lg-4">
+      <label>Catégorie</label>
+      <select class="form-control form-control-lg" id="idCat" name="idCat" [(ngModel)]="updatedCatId">
+        @for(cat of categories; track cat.idCat){
+        <option [value]="cat.idCat">{{ cat.nomCat }}</option>
         }
-        @if (myAI.controls['name'].hasError('minlength') && myAI.controls['name'].touched) {
-            <span class="text-danger">
-                Nom Modèle doit contenir au moins 5 caractères
-            </span>
-        }
+      </select>
+    </div>
 
-        <div class="col-sm-2 col-md-2 col-lg-2">
-            <label>Version</label>
-            <input type="text" class="form-control" formControlName="version">
-        </div>
-        @if (myAI.controls['version'].hasError('required') && myAI.controls['version'].touched) {
-            <span class="text-danger">
-                Version est obligatoire
-            </span>
-        }
-
-        <div class="col-sm-2 col-md-2 col-lg-2">
-            <label>Accuracy</label>
-            <input type="number" step="0.01" class="form-control" formControlName="accuracy">
-        </div>
-        @if (myAI.controls['accuracy'].hasError('required') && myAI.controls['accuracy'].touched) {
-            <span class="text-danger">
-                Accuracy est obligatoire
-            </span>
-        }
-        @if (myAI.controls['accuracy'].hasError('min') && myAI.controls['accuracy'].touched) {
-            <span class="text-danger">
-                Accuracy doit être au moins 10
-            </span>
-        }
-
-        <div class="col-sm-4 col-md-4 col-lg-4">
-            <label>Date d'entraînement</label>
-            <input type="date" class="form-control" formControlName="trainingDate">
-        </div>
-        @if (myAI.controls['trainingDate'].hasError('required') && myAI.controls['trainingDate'].touched) {
-            <span class="text-danger">
-                Date d'entraînement est obligatoire
-            </span>
-        }
-
-        <div class="col-sm-4 col-md-4 col-lg-4">
-            <label>Email</label>
-            <input type="email" class="form-control" formControlName="email">
-        </div>
-        @if (myAI.controls['email'].hasError('required') && myAI.controls['email'].touched) {
-            <span class="text-danger">
-                Email est obligatoire
-            </span>
-        }
-        @if (myAI.controls['email'].hasError('email') && myAI.controls['email'].touched) {
-            <span class="text-danger">
-                Email non valide
-            </span>
-        }
-
-        <div class="col-sm-4 col-md-4 col-lg-4">
-            <label>Openstate</label>
-            <select class="form-control form-control-lg" id="idCat" formControlName="idCat">
-                @for(cat of categories; track cat.idstate)
-                {
-                <option [value]="cat.idstate"> {{cat.nomstate}} </option>
-                }
-            </select>
-        </div>
-        @if (myAI.controls['idCat'].hasError('required') && myAI.controls['idCat'].touched) {
-            <span class="text-danger">
-                Openstate est obligatoire
-            </span>
-        }
-
-        <div class="mt-2">
-            <button type="submit" (click)="updateAIModel()" class="btn btn-success" [disabled]="myAI.invalid">Modifier</button>
-        </div>
-    </form>
+    <div class="mt-2">
+      <button type="submit" (click)="updateAIModel()" class="btn btn-success">Modifier</button>
+    </div>
+  </form>
 </div>

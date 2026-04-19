@@ -10,7 +10,6 @@ import { RouterLink } from '@angular/router';
   standalone: true,
   imports: [CommonModule, FormsModule, RouterLink],
   templateUrl: './recherche-par-nom.html',
-  styles: ``
 })
 export class RechercheParNom implements OnInit {
 
@@ -19,24 +18,24 @@ export class RechercheParNom implements OnInit {
   aiModels!: AIModel[];
   searchTerm! : string; 
 
-  constructor(private AIModelService: AIModelService) {}
+  constructor(private aiModelService: AIModelService) {}
 
   ngOnInit(): void {
-    this.allAImodels = this.AIModelService.listeAIModels();
+    this.allAImodels = this.aiModelService.listeAIModels();
     this.aiModels = this.allAImodels;
   }
 
   onKeyUp(filterText: string) {
     this.aiModels = this.allAImodels.filter(item =>
-      item.name!.toLowerCase().includes(filterText.toLowerCase())
+      item.nomAI!.toLowerCase().includes(filterText.toLowerCase())
     );
   }
 
   supprimerAIModel(model: AIModel) {
     let conf = confirm('Etes-vous sûr ?');
     if (conf) {
-      this.AIModelService.supprimerAIModel(model);
-      this.allAImodels = this.AIModelService.listeAIModels();
+      this.aiModelService.supprimerAIModel(model);
+      this.allAImodels = this.aiModelService.listeAIModels();
       this.aiModels = this.allAImodels;
     }
   }

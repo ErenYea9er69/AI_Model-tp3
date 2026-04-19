@@ -1,112 +1,42 @@
 import { Injectable } from '@angular/core';
 import { AIModel } from '../model/ai.model';
-import { OpenState } from "../model/OpenState.model";
+import { AICategory } from "../model/AICategory.model";
 
 @Injectable({
   providedIn: 'root',
 })
 export class AIModelService {
   aiModels: AIModel[];
+  categories: AICategory[];
   aiModel!: AIModel;
-  OpenStates!: OpenState[];
-  aiModelrecherche!: AIModel[];
 
   constructor() {
-    this.OpenStates = [
-      { idstate: 1, nomstate: "Open-source" },
-      { idstate: 2, nomstate: "Close-source" }
+    this.categories = [
+      { idCat: 1, nomCat: "Open-source" },
+      { idCat: 2, nomCat: "Close-source" }
     ];
 
     this.aiModels = [
       {
-        idModel: 1,
-        name: "GPT-5",
-        version: "5.0",
-        trainingDate: new Date("04/15/2025"),
-        accuracy: 97.5,
-        OpenState: { idstate: 2, nomstate: "Close-source" },
-        email: "gpt5@example.com"
+        idAI: 1,
+        nomAI: "GPT-4",
+        prixAI: 2500.5,
+        dateCreation: new Date("01/14/2024"),
+        aiCategory: { idCat: 2, nomCat: "Close-source" }
       },
       {
-        idModel: 2,
-        name: "Claude 3.5 Sonnet",
-        version: "3.5",
-        trainingDate: new Date("07/10/2024"),
-        accuracy: 96.1,
-        OpenState: { idstate: 2, nomstate: "Close-source" },
-        email: "claude3.5.sonnet@example.com"
+        idAI: 2,
+        nomAI: "Claude 3.5",
+        prixAI: 2200.0,
+        dateCreation: new Date("12/17/2023"),
+        aiCategory: { idCat: 2, nomCat: "Close-source" }
       },
       {
-        idModel: 3,
-        name: "Grok 3",
-        version: "3.0",
-        trainingDate: new Date("08/05/2024"),
-        accuracy: 94.3,
-        OpenState: { idstate: 2, nomstate: "Close-source" },
-        email: "grok3@example.com"
-      },
-      {
-        idModel: 4,
-        name: "Gemini 1.5 Pro",
-        version: "1.5",
-        trainingDate: new Date("03/01/2024"),
-        accuracy: 95.0,
-        OpenState: { idstate: 2, nomstate: "Close-source" },
-        email: "gemini1.5pro@example.com"
-      },
-      {
-        idModel: 5,
-        name: "Kimi Chat 2.0",
-        version: "2.0",
-        trainingDate: new Date("02/20/2024"),
-        accuracy: 92.7,
-        OpenState: { idstate: 1, nomstate: "Open-source" },
-        email: "kimi.chat2@example.com"
-      },
-      {
-        idModel: 6,
-        name: "DeepSeek V2",
-        version: "2.0",
-        trainingDate: new Date("05/22/2024"),
-        accuracy: 93.4,
-        OpenState: { idstate: 1, nomstate: "Open-source" },
-        email: "deepseekv2@example.com"
-      },
-      {
-        idModel: 7,
-        name: "LongCat XL",
-        version: "1.3",
-        trainingDate: new Date("06/11/2024"),
-        accuracy: 91.2,
-        OpenState: { idstate: 1, nomstate: "Open-source" },
-        email: "longcatxl@example.com"
-      },
-      {
-        idModel: 8,
-        name: "Mistral 7B",
-        version: "1.0",
-        trainingDate: new Date("10/10/2023"),
-        accuracy: 89.7,
-        OpenState: { idstate: 1, nomstate: "Open-source" },
-        email: "mistral7b@example.com"
-      },
-      {
-        idModel: 9,
-        name: "LLaMA 3",
-        version: "3.0",
-        trainingDate: new Date("05/20/2024"),
-        accuracy: 91.5,
-        OpenState: { idstate: 1, nomstate: "Open-source" },
-        email: "llama3@example.com"
-      },
-      {
-        idModel: 10,
-        name: "Claude 3 Opus",
-        version: "3.0",
-        trainingDate: new Date("05/01/2024"),
-        accuracy: 96.5,
-        OpenState: { idstate: 2, nomstate: "Close-source" },
-        email: "claude3.opus@example.com"
+        idAI: 3,
+        nomAI: "Mistral 7B",
+        prixAI: 0.0,
+        dateCreation: new Date("02/20/2024"),
+        aiCategory: { idCat: 1, nomCat: "Open-source" }
       }
     ];
   }
@@ -120,53 +50,33 @@ export class AIModelService {
   }
 
   supprimerAIModel(model: AIModel) {
-    const index = this.aiModels.findIndex((m) => m.idModel === model.idModel);
+    const index = this.aiModels.findIndex((m) => m.idAI === model.idAI);
     if (index > -1) {
       this.aiModels.splice(index, 1);
     }
   }
 
   consulterAIModel(id: number): AIModel {
-    this.aiModel = this.aiModels.find((m) => m.idModel == id)!;
+    this.aiModel = this.aiModels.find((m) => m.idAI == id)!;
     return this.aiModel;
   }
 
   updateAIModel(model: AIModel) {
-    const index = this.aiModels.findIndex((m) => m.idModel === model.idModel);
+    const index = this.aiModels.findIndex((m) => m.idAI === model.idAI);
     if (index > -1) {
       this.aiModels[index] = model;
     }
   }
 
-  listestate():OpenState[] {
-    return this.OpenStates;
-  }
-  
-  consulterCategorie(id:number): OpenState{
-    return this.OpenStates.find(cat => cat.idstate == id)!;
+  listeCategories(): AICategory[] {
+    return this.categories;
   }
 
-  rechercherParCategorie(IdS: number): AIModel[] {
-    return this.aiModels.filter((model) => model.OpenState.idstate == IdS);
+  consulterCategorie(id: number): AICategory {
+    return this.categories.find(cat => cat.idCat == id)!;
   }
 
-  ajouterOpenState(model: OpenState): void {
-    const maxId = Math.max(...this.OpenStates.map(s => s.idstate), 0);
-    model.idstate = maxId + 1;
-    this.OpenStates.push(model);
-  }
-
-  updateOpenState(model: OpenState): void {
-    const index = this.OpenStates.findIndex((s) => s.idstate === model.idstate);
-    if (index > -1) {
-      this.OpenStates[index] = model;
-    }
-  }
-
-  supprimerOpenState(model: OpenState): void {
-    const index = this.OpenStates.findIndex((s) => s.idstate === model.idstate);
-    if (index > -1) {
-      this.OpenStates.splice(index, 1);
-    }
+  rechercherParCategorie(idCat: number): AIModel[] {
+    return this.aiModels.filter((model) => model.aiCategory?.idCat == idCat);
   }
 }

@@ -1,11 +1,9 @@
-import { OpenState } from "./OpenState.model";
+import { AICategory } from "./AICategory.model";
 
 export class AIModel {
-  idModel?: number;
-  name?: string;
-  version?: string;
-  trainingDate?: Date;
-  email?: string;
-  accuracy?: number;
-  OpenState! : OpenState;
+  idAI? : number;
+  nomAI? : string;
+  prixAI? : number;
+  dateCreation? : Date ;
+  aiCategory? : AICategory;
 }
