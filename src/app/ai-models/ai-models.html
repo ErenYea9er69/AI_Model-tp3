@@ -21,9 +21,9 @@
                         <td>{{ aiModel.dateCreation | date: "dd/MM/yyyy" }}</td>
                         <td>{{ aiModel.aiCategory?.nomCat }}</td>
                         <td>
-                            @if(aiModel.imageStr){
-                                <img class="card-img-top img-responsive" [src]="aiModel.imageStr" style="height: 50px; width: 100px">
-                            }
+                            <img class="card-img-top img-responsive"
+                                [src]="apiURL + '/image/loadfromFS/' + aiModel.idAI"
+                                style="height :50px;width:100px">
                         </td>
                         <td *ngIf="authService.isAdmin()">
                             <a class="btn btn-danger" (click)="supprimerAIModel(aiModel)">Supprimer</a>

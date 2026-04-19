@@ -9,4 +9,6 @@ export class AIModel {
     aiCategory! : AICategory;
     image! : Image;
     imageStr!: string;
+    images!: Image[];
+    imagePath!: string;
 }

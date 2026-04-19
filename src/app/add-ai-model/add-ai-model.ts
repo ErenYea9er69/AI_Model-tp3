@@ -5,7 +5,6 @@ import { AIModelService } from '../services/ai';
 import { AICategory } from "../model/AICategory.model";
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { Image } from '../model/image.model';
 
 @Component({
   selector: 'app-add-ai-model',
@@ -39,14 +38,13 @@ export class AddAIModel implements OnInit {
   }
 
   addAIModel() {
+    this.newAIModel.aiCategory = this.categories.find(cat => cat.idCat == this.newIdCat)!;
     this.aiModelService
-      .uploadImage(this.uploadedImage, this.uploadedImage.name)
-      .subscribe((img: Image) => {
-        this.newAIModel.image = img;
-        this.newAIModel.aiCategory = this.categories.find(cat => cat.idCat == this.newIdCat)!;
+      .ajouterAIModel(this.newAIModel)
+      .subscribe((prod : AIModel) => {
         this.aiModelService
-          .ajouterAIModel(this.newAIModel)
-          .subscribe(() => {
+          .uploadImageFS(this.uploadedImage, this.uploadedImage.name, prod.idAI)
+          .subscribe((response: any) => {
             this.router.navigate(['aiModels']);
           });
       });

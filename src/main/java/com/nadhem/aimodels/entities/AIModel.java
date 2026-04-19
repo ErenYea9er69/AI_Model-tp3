@@ -6,6 +6,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,8 +27,10 @@ public class AIModel {
     @ManyToOne
     private AICategory aiCategory;
 
-    @OneToOne
-    private Image image;
+    @OneToMany(mappedBy = "aiModel")
+    private List<Image> images;
+
+    private String imagePath;
 
     public AIModel(String nomAI, Double prixAI, Date dateCreation, AICategory aiCategory) {
         this.nomAI = nomAI;

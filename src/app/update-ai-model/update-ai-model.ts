@@ -36,12 +36,6 @@ export class UpdateAIModel implements OnInit {
     this.aiModelService.consulterAIModel(this.activatedRoute.snapshot.params['id']).subscribe(prod => {
       this.currentAIModel = prod;
       this.updatedCatId = this.currentAIModel.aiCategory.idCat;
-
-      if (this.currentAIModel.image) {
-        this.aiModelService.loadImage(this.currentAIModel.image.idImage).subscribe((img: Image) => {
-          this.myImage = 'data:' + img.type + ';base64,' + img.image;
-        });
-      }
     });
   }
 
@@ -57,22 +51,30 @@ export class UpdateAIModel implements OnInit {
     }
   }
 
-  updateAIModel() {
-    this.currentAIModel.aiCategory = this.categories.find(cat => cat.idCat == this.updatedCatId)!;
+  onAddImageAIModel() {
+    this.aiModelService
+      .uploadImageProd(this.uploadedImage, this.uploadedImage.name, this.currentAIModel.idAI)
+      .subscribe((img: Image) => {
+        this.currentAIModel.images.push(img);
+      });
+  }
 
-    if (this.isImageUpdated) {
-      this.aiModelService
-        .uploadImage(this.uploadedImage, this.uploadedImage.name)
-        .subscribe((img: Image) => {
-          this.currentAIModel.image = img;
-          this.aiModelService.updateAIModel(this.currentAIModel).subscribe(() => {
-            this.router.navigate(['aiModels']);
-          });
-        });
-    } else {
-      this.aiModelService.updateAIModel(this.currentAIModel).subscribe(() => {
-        this.router.navigate(['aiModels']);
+  supprimerImage(img: Image) {
+    let conf = confirm("Etes-vous sûr ?");
+    if (conf) {
+      this.aiModelService.supprimerImage(img.idImage).subscribe(() => {
+        const index = this.currentAIModel.images.indexOf(img, 0);
+        if (index > -1) {
+          this.currentAIModel.images.splice(index, 1);
+        }
       });
     }
+  }
+
+  updateAIModel() {
+    this.currentAIModel.aiCategory = this.categories.find(cat => cat.idCat == this.updatedCatId)!;
+    this.aiModelService.updateAIModel(this.currentAIModel).subscribe(() => {
+      this.router.navigate(['aiModels']);
+    });
   }
 }

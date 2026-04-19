@@ -28,6 +28,8 @@ public class Image {
     @Lob
     private byte[] image;
 
-    @OneToOne(mappedBy = "image")
+    @ManyToOne
+    @JoinColumn(name = "AI_ID")
+    @com.fasterxml.jackson.annotation.JsonIgnore
     private AIModel aiModel;
 }

@@ -68,4 +68,23 @@ export class AIModelService {
     const url = `${this.apiURL + '/image/get/info'}/${id}`;
     return this.http.get<Image>(url);
   }
+
+  uploadImageProd(file: File, filename: string, idProd: number): Observable<any> {
+    const imageFormData = new FormData();
+    imageFormData.append('image', file, filename);
+    const url = `${this.apiURL + '/image/uplaodImageProd'}/${idProd}`;
+    return this.http.post(url, imageFormData);
+  }
+
+  supprimerImage(id: number) {
+    const url = `${this.apiURL}/image/delete/${id}`;
+    return this.http.delete(url);
+  }
+
+  uploadImageFS(file: File, filename: string, idProd: number): Observable<any> {
+    const imageFormData = new FormData();
+    imageFormData.append('image', file, filename);
+    const url = `${this.apiURL + '/image/uploadFS'}/${idProd}`;
+    return this.http.post(url, imageFormData);
+  }
 }

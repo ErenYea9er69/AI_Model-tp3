@@ -2,16 +2,17 @@ import { Component, OnInit } from '@angular/core';
 import { AIModel } from '../model/ai.model';
 import { AIModelService } from '../services/ai';
 import { AuthService } from '../services/auth';
-import { Image } from '../model/image.model';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-ai-models',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './ai-models.html',
 })
 export class AIModels implements OnInit {
   aiModels? : AIModel[];
+  apiURL: string = 'http://localhost:8080/aimodels/api';
 
   constructor(private aiModelService: AIModelService, public authService: AuthService) {}
 
@@ -22,13 +23,6 @@ export class AIModels implements OnInit {
   chargerAIModels() {
     this.aiModelService.listeAIModels().subscribe(prods => {
       this.aiModels = prods;
-      this.aiModels.forEach((prod) => {
-        if (prod.image) {
-          this.aiModelService.loadImage(prod.image.idImage).subscribe((img: Image) => {
-            prod.imageStr = 'data:' + img.type + ';base64,' + img.image;
-          });
-        }
-      });
     });
   }
 
@@ -36,7 +30,6 @@ export class AIModels implements OnInit {
     let conf = confirm('Etes-vous sûr ?');
     if (conf) {
       this.aiModelService.supprimerAIModel(p.idAI).subscribe(() => {
-        console.log('Produit supprimé');
         this.chargerAIModels();
       });
     }
