@@ -51,4 +51,9 @@ public class AIModelRESTController {
     public List<AIModel> getAIModelsByCatId(@PathVariable("idCat") Long idCat) {
         return aiModelService.findByAICategoryIdCat(idCat);
     }
+
+    @GetMapping("/prodsByName/{nom}")
+    public List<AIModel> findByNomAIContains(@PathVariable("nom") String nom) {
+        return aiModelService.findByNomAIContains(nom);
+    }
 }

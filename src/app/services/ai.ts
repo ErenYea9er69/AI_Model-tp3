@@ -50,4 +50,9 @@ export class AIModelService {
     const url = `${this.apiURL}/aimodelscat/${idCat}`;
     return this.http.get<AIModel[]>(url);
   }
+
+  rechercherParNom(nom: string): Observable<AIModel[]> {
+    const url = `${this.apiURL}/prodsByName/${nom}`;
+    return this.http.get<AIModel[]>(url);
+  }
 }
