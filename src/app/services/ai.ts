@@ -21,33 +21,33 @@ export class AIModelService {
   constructor(private http : HttpClient) { }
 
   listeAIModels(): Observable<AIModel[]> {
-    return this.http.get<AIModel[]>(this.apiURL);
+    return this.http.get<AIModel[]>(this.apiURL + "/all");
   }
 
   ajouterAIModel(model: AIModel): Observable<AIModel> {
-    return this.http.post<AIModel>(this.apiURL, model, httpOptions);
+    return this.http.post<AIModel>(this.apiURL + "/addprod", model, httpOptions);
   }
 
   supprimerAIModel(id : number) {
-    const url = `${this.apiURL}/${id}`;
+    const url = `${this.apiURL}/delprod/${id}`;
     return this.http.delete(url, httpOptions);
   }
 
   consulterAIModel(id: number): Observable<AIModel> {
-    const url = `${this.apiURL}/${id}`;
+    const url = `${this.apiURL}/getbyid/${id}`;
     return this.http.get<AIModel>(url);
   }
 
   updateAIModel(model: AIModel): Observable<AIModel> {
-    return this.http.put<AIModel>(this.apiURL, model, httpOptions);
+    return this.http.put<AIModel>(this.apiURL + "/updateprod", model, httpOptions);
   }
 
-  listeCategories(): Observable<AICategoryWrapper> { // Now returning the wrapper
+  listeCategories(): Observable<AICategoryWrapper> {
     return this.http.get<AICategoryWrapper>(this.apiURLCat);
   }
 
   rechercherParCategorie(idCat: number): Observable<AIModel[]> {
-    const url = `${this.apiURL}/aimodelscat/${idCat}`;
+    const url = `${this.apiURL}/prodscat/${idCat}`;
     return this.http.get<AIModel[]>(url);
   }
 
