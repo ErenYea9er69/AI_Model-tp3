@@ -5,7 +5,14 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 public class AIModel {
 
@@ -16,51 +23,13 @@ public class AIModel {
     private Double prixAI;
     private Date dateCreation;
 
-    public AIModel() {
-        super();
-    }
+    @ManyToOne
+    private AICategory aiCategory;
 
-    public AIModel(String nomAI, Double prixAI, Date dateCreation) {
-        super();
+    public AIModel(String nomAI, Double prixAI, Date dateCreation, AICategory aiCategory) {
         this.nomAI = nomAI;
         this.prixAI = prixAI;
         this.dateCreation = dateCreation;
-    }
-
-    public Long getIdAI() {
-        return idAI;
-    }
-
-    public void setIdAI(Long idAI) {
-        this.idAI = idAI;
-    }
-
-    public String getNomAI() {
-        return nomAI;
-    }
-
-    public void setNomAI(String nomAI) {
-        this.nomAI = nomAI;
-    }
-
-    public Double getPrixAI() {
-        return prixAI;
-    }
-
-    public void setPrixAI(Double prixAI) {
-        this.prixAI = prixAI;
-    }
-
-    public Date getDateCreation() {
-        return dateCreation;
-    }
-
-    public void setDateCreation(Date dateCreation) {
-        this.dateCreation = dateCreation;
-    }
-
-    @Override
-    public String toString() {
-        return "AIModel [idAI=" + idAI + ", nomAI=" + nomAI + ", prixAI=" + prixAI + ", dateCreation=" + dateCreation + "]";
+        this.aiCategory = aiCategory;
     }
 }
