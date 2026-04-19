@@ -6,6 +6,7 @@ import { AIModelService } from '../services/ai';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
+
 @Component({
   selector: 'app-update-ai-model',
   standalone: true,
