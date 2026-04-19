@@ -21,8 +21,8 @@ export class AddAIModelComponent implements OnInit {
 
   ngOnInit() {
     this.aiModelService.listeCategories().subscribe(cats => {
-      this.categories = cats;
       console.log(cats);
+      this.categories = cats._embedded.categories;
     });
   }
 

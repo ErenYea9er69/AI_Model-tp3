@@ -6,6 +6,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 import com.nadhem.aimodels.entities.AIModel;
+import com.nadhem.aimodels.entities.AICategory;
 
 @SpringBootApplication
 public class AIModelsApplication implements CommandLineRunner {
@@ -19,6 +20,6 @@ public class AIModelsApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        repositoryRestConfiguration.exposeIdsFor(AIModel.class);
+        repositoryRestConfiguration.exposeIdsFor(AIModel.class, AICategory.class);
     }
 }

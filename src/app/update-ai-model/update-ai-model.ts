@@ -25,8 +25,8 @@ export class UpdateAIModelComponent implements OnInit {
 
   ngOnInit(): void {
     this.aiModelService.listeCategories().subscribe(cats => {
-      this.categories = cats;
       console.log(cats);
+      this.categories = cats._embedded.categories;
     });
 
     this.aiModelService.consulterAIModel(this.activatedRoute.snapshot.params['id']).subscribe(prod => {
