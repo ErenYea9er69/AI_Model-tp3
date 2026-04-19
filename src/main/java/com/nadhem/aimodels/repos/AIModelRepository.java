@@ -4,9 +4,11 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import com.nadhem.aimodels.entities.AIModel;
 import com.nadhem.aimodels.entities.AICategory;
 
+@RepositoryRestResource(path = "rest")
 public interface AIModelRepository extends JpaRepository<AIModel, Long> {
 
     List<AIModel> findByNomAI(String nom);
