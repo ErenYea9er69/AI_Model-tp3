@@ -20,19 +20,24 @@ export class RechercheParState implements OnInit {
   constructor(private aiModelService : AIModelService) { }
 
   ngOnInit(): void {
-    this.categories = this.aiModelService.listeCategories();
+    this.aiModelService.listeCategories().subscribe(cats => {
+      this.categories = cats;
+    });
     this.aiModels = [];
   }
 
   onChange() {
-    this.aiModels = this.aiModelService.rechercherParCategorie(this.idCat);
+    this.aiModelService.rechercherParCategorie(this.idCat).subscribe(prods => {
+      this.aiModels = prods;
+    });
   }
 
   supprimerAIModel(model: AIModel) {
     let conf = confirm('Etes-vous sûr ?');
     if (conf) {
-      this.aiModelService.supprimerAIModel(model);
-      this.onChange();
+      this.aiModelService.supprimerAIModel(model.idAI!).subscribe(() => {
+        this.onChange();
+      });
     }
   }
 }

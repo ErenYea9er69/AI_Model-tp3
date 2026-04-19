@@ -21,8 +21,10 @@ export class RechercheParNom implements OnInit {
   constructor(private aiModelService: AIModelService) {}
 
   ngOnInit(): void {
-    this.allAImodels = this.aiModelService.listeAIModels();
-    this.aiModels = this.allAImodels;
+    this.aiModelService.listeAIModels().subscribe(prods => {
+      this.allAImodels = prods;
+      this.aiModels = prods;
+    });
   }
 
   onKeyUp(filterText: string) {
@@ -34,9 +36,12 @@ export class RechercheParNom implements OnInit {
   supprimerAIModel(model: AIModel) {
     let conf = confirm('Etes-vous sûr ?');
     if (conf) {
-      this.aiModelService.supprimerAIModel(model);
-      this.allAImodels = this.aiModelService.listeAIModels();
-      this.aiModels = this.allAImodels;
+      this.aiModelService.supprimerAIModel(model.idAI!).subscribe(() => {
+        this.aiModelService.listeAIModels().subscribe(prods => {
+          this.allAImodels = prods;
+          this.aiModels = prods;
+        });
+      });
     }
   }
 }

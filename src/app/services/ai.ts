@@ -43,4 +43,9 @@ export class AIModelService {
   listeCategories(): Observable<AICategory[]> {
     return this.http.get<AICategory[]>(this.apiURL + "/cat");
   }
+
+  rechercherParCategorie(idCat: number): Observable<AIModel[]> {
+    const url = `${this.apiURL}/aimodelscat/${idCat}`;
+    return this.http.get<AIModel[]>(url);
+  }
 }

@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { OpenState } from '../model/OpenState.model';
+import { AICategory } from '../model/AICategory.model';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
@@ -10,15 +10,15 @@ import { CommonModule } from '@angular/common';
   templateUrl: './update-openstate.html',
 })
 export class UpdateOpenState implements OnInit {
-  @Input() openState!: OpenState;
+  @Input() category!: AICategory;
   @Input() ajout!: boolean;
-  @Output() openStateUpdated = new EventEmitter<OpenState>();
+  @Output() categoryUpdated = new EventEmitter<AICategory>();
 
   ngOnInit(): void {
-    console.log('ngOnInit du composant UpdateOpenState', this.openState, 'ajout=', this.ajout);
+    console.log('ngOnInit du composant UpdateOpenState', this.category, 'ajout=', this.ajout);
   }
 
-  saveOpenState() {
-    this.openStateUpdated.emit(this.openState);
+  saveCategory() {
+    this.categoryUpdated.emit(this.category);
   }
 }

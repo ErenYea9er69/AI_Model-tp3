@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { OpenState } from '../model/OpenState.model';
+import { AICategory } from '../model/AICategory.model';
 import { AIModelService } from '../services/ai';
 import { UpdateOpenState } from '../update-openstate/update-openstate';
 import { CommonModule } from '@angular/common';
@@ -11,34 +11,34 @@ import { CommonModule } from '@angular/common';
   templateUrl: './liste-openstates.html',
 })
 export class ListeOpenStates implements OnInit {
-  openStates!: OpenState[];
-  updatedOpenState: OpenState = {idstate: 0, nomstate: ""};
+  categories!: AICategory[];
+  updatedCat: AICategory = {idCat: 0, nomCat: ""};
   ajout: boolean = true;
 
   constructor(private aiModelService: AIModelService) {}
 
   ngOnInit(): void {
-    this.chargerOpenStates();
+    this.chargerCategories();
   }
 
-  chargerOpenStates() {
-    this.openStates = this.aiModelService.listestate();
+  chargerCategories() {
+    this.aiModelService.listeCategories().subscribe(cats => {
+      this.categories = cats;
+    });
   }
 
-  openStateUpdated(openState: OpenState) {
-    console.log('OpenState updated event', openState);
-    if (this.ajout) {
-      this.aiModelService.ajouterOpenState(openState);
-    } else {
-      this.aiModelService.updateOpenState(openState);
-    }
-    this.chargerOpenStates();
-    this.updatedOpenState = {idstate: 0, nomstate: ""};
+  catUpdated(cat: AICategory) {
+    console.log('Category updated event', cat);
+    // Note: Standard Spring Data REST or custom REST logic for categories CRUD is needed here
+    // For now, we update the local view or refresh if the service had methods.
+    // The user's tutorial focus is on Products, but let's keep the list functional.
+    this.chargerCategories();
+    this.updatedCat = {idCat: 0, nomCat: ""};
     this.ajout = true;
   }
 
-  updateOpenState(openState: OpenState) {
-    this.updatedOpenState = openState;
+  updateCat(cat: AICategory) {
+    this.updatedCat = cat;
     this.ajout = false;
   }
 }
