@@ -10,7 +10,9 @@
             <th>Prix</th>
             <th>Date Création</th>
             <th>Catégorie</th>
-            <th>Actions</th>
+            @if(authService.isAdmin()) {
+              <th>Actions</th>
+            }
           </tr>
         </thead>
         <tbody>
@@ -22,10 +24,12 @@
             <td>{{ model.prixAI }}</td>
             <td>{{ model.dateCreation | date:'dd/MM/yyyy' }}</td>
             <td>{{ model.aiCategory?.nomCat }}</td>
+            @if(authService.isAdmin()) {
             <td>
-              <a *ngIf="authService.isAdmin()" class="btn btn-danger" (click)="supprimerAIModel(model)">Supprimer</a>
-              <a *ngIf="authService.isAdmin()" class="btn btn-success" [routerLink]="['/updateAIModel', model.idAI]">Modifier</a>
+              <a class="btn btn-danger" (click)="supprimerAIModel(model)">Supprimer</a>
+              <a class="btn btn-success" [routerLink]="['/updateAIModel', model.idAI]">Modifier</a>
             </td>
+            }
           </tr>
           }
         </tbody>

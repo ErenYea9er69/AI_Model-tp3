@@ -2,10 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { User } from '../model/user.model';
-import { Auth } from '../services/auth';
+import { AuthService } from '../services/auth';
 import { Router } from '@angular/router';
-
-
 
 @Component({
   selector: 'app-login',
@@ -20,11 +18,14 @@ export class Login implements OnInit {
 
   ngOnInit() {}
 
-  constructor(private authService: Auth, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router) {}
+
   onLoggedin() {
     let isValidUser: Boolean = this.authService.SignIn(this.user);
-    if (isValidUser) this.router.navigate(['/']);
-    else //alert('Login ou mot de passe incorrecte!');
+    if (isValidUser) {
+      this.router.navigate(['/']);
+    } else {
       this.erreur = true;
+    }
   }
 }

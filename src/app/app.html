@@ -17,16 +17,15 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         @if(authService.isAdmin()) {
-
-                        <li><a class="dropdown-item" routerLink="/add-ai-model">Ajouter</a></li>}
+                        <li><a class="dropdown-item" routerLink="/add-ai-model">Ajouter</a></li>
+                        }
                         <li><a class="dropdown-item" routerLink="/aiModels">Lister</a></li>
                         <li><a class="dropdown-item" routerLink="/rechercheParCategorie">Recherche Par Catégorie</a>
                         </li>
                         <li><a class="dropdown-item" routerLink="/rechercheParNom">Recherche Par Nom</a></li>
                         @if(authService.isAdmin()) {
-
-                        <li><a class="dropdown-item" routerLink="/liste-openstates">Gérer OpenStates</a></li>}
-
+                        <li><a class="dropdown-item" routerLink="/liste-openstates">Gérer OpenStates</a></li>
+                        }
                     </ul>
                 </li>
             </ul>
@@ -34,15 +33,17 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                         data-bs-toggle="dropdown" aria-expanded="false">
-                        [{{authService.loggedUser}}]
+                        @if(authService.isloggedIn) {
+                          [{{ authService.loggedUser }}]
+                        } @else {
+                          Connexion
+                        }
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-
-                        @if(!authService.isloggedIn){
-                        <li><a class="dropdown-item" routerLink="/login">Login</a></li>
-                        }
-                        @else {
-                        <li><a class="dropdown-item" (click)="onLogout()">Logout</a></li>
+                        @if(!authService.isloggedIn) {
+                          <li><a class="dropdown-item" routerLink="/login">Login</a></li>
+                        } @else {
+                          <li><a class="dropdown-item" (click)="onLogout()">Logout</a></li>
                         }
                         <li><a class="dropdown-item" href="#">Profile</a></li>
                     </ul>
@@ -51,6 +52,5 @@
         </div>
     </div>
 </nav>
-
 
 <router-outlet />

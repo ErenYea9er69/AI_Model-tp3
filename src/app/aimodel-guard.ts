@@ -1,18 +1,15 @@
-import { CanActivateFn,Router  } from '@angular/router';
+import { CanActivateFn, Router } from '@angular/router';
+import { AuthService } from './services/auth';
 import { inject } from '@angular/core';
-import { Auth } from './services/auth';
 
 export const aimodelGuard: CanActivateFn = (route, state) => {
+  const authService = inject(AuthService);
+  const router = inject(Router);
 
-      const authService = inject(Auth);
-    const router = inject(Router);
-    if (authService.isAdmin())
-          return true;
-    else {
-          router.navigate(['app-forbidden']);
+  if (authService.isAdmin()) {
+    return true;
+  } else {
+    router.navigate(['app-forbidden']);
     return false;
-
- 
+  }
 };
-
-}

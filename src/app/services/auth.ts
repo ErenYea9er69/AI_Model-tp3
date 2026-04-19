@@ -5,10 +5,10 @@ import { Router } from '@angular/router';
 @Injectable({
   providedIn: 'root',
 })
-export class Auth {
+export class AuthService {
   users: User[] = [
     { username: 'admin', password: '123', roles: ['ADMIN'] },
-    { username: 'rayen', password: '123', roles: ['USER'] },
+    { username: 'nadhem', password: '123', roles: ['USER'] },
   ];
 
   public loggedUser: string | undefined;
@@ -25,6 +25,7 @@ export class Auth {
     localStorage.setItem('isloggedIn', String(this.isloggedIn));
     this.router.navigate(['/login']);
   }
+
   SignIn(user: User): Boolean {
     let validUser: Boolean = false;
     this.users.forEach((curUser) => {
@@ -39,10 +40,9 @@ export class Auth {
     });
     return validUser;
   }
+
   isAdmin(): Boolean {
-    if (!this.roles)
-      //this.roles== undefiened
-      return false;
+    if (!this.roles) return false;
     return this.roles.indexOf('ADMIN') > -1;
   }
 
@@ -51,6 +51,7 @@ export class Auth {
     this.isloggedIn = true;
     this.getUserRoles(login);
   }
+
   getUserRoles(username: string) {
     this.users.forEach((curUser) => {
       if (curUser.username == username) {

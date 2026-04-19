@@ -12,13 +12,12 @@ import { ListeOpenStates } from './liste-openstates/liste-openstates';
 export const routes: Routes = [
     {path: "aiModels", component : AIModels},
     {path: "add-ai-model", component : AddAIModelComponent, canActivate: [aimodelGuard]},
-    {path: "updateAIModel/:id", component: UpdateAIModelComponent},
+    {path: "updateAIModel/:id", component: UpdateAIModelComponent, canActivate: [aimodelGuard]},
     {path: "rechercheParCategorie", component: RechercheParState },
     {path: "rechercheParNom", component : RechercheParNom},
     {path: 'login', component: Login},
     {path: 'app-forbidden', component: Forbidden},
     {path: "liste-openstates", component: ListeOpenStates, canActivate: [aimodelGuard]},
-
 
     {path: "", redirectTo: "aiModels", pathMatch: "full"}
 ];
