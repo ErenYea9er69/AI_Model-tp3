@@ -8,6 +8,8 @@ import { Login } from './login/login';
 import { Forbidden } from './forbidden/forbidden';
 import { aimodelGuard } from './aimodel-guard';
 import { ListeOpenStates } from './liste-openstates/liste-openstates';
+import { Register } from './register/register';
+import { VerifEmail } from './verif-email/verif-email';
 
 export const routes: Routes = [
     {path: "aiModels", component : AIModels},
@@ -16,6 +18,8 @@ export const routes: Routes = [
     {path: "rechercheParCategorie", component: RechercheParState },
     {path: "rechercheParNom", component : RechercheParNom},
     {path: 'login', component: Login},
+    {path: 'register', component: Register},
+    {path: 'verifEmail', component: VerifEmail},
     {path: 'app-forbidden', component: Forbidden},
     {path: "liste-openstates", component: ListeOpenStates, canActivate: [aimodelGuard]},
 

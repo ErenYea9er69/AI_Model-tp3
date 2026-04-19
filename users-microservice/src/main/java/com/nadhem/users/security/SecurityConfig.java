@@ -26,13 +26,15 @@ public class SecurityConfig {
                     CorsConfiguration config = new CorsConfiguration();
                     config.setAllowedOrigins(Collections.singletonList("http://localhost:4200"));
                     config.setAllowedMethods(Collections.singletonList("*"));
+                    config.setAllowCredentials(true);
                     config.setAllowedHeaders(Collections.singletonList("*"));
                     config.setExposedHeaders(Collections.singletonList("Authorization"));
+                    config.setMaxAge(3600L);
                     return config;
                 }
             }))
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/login").permitAll()
+                .requestMatchers("/login", "/register/**", "/verifyEmail/**").permitAll()
                 .requestMatchers("/all").hasAuthority("ADMIN")
                 .anyRequest().authenticated()
             )

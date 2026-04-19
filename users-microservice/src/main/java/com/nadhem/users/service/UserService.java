@@ -1,7 +1,4 @@
-package com.nadhem.users.service;
-
-import com.nadhem.users.entities.Role;
-import com.nadhem.users.entities.User;
+import com.nadhem.users.register.RegistationRequest;
 
 public interface UserService {
     User saveUser(User user);
@@ -9,4 +6,7 @@ public interface UserService {
     Role addRole(Role role);
     User addRoleToUser(String username, String rolename);
     List<User> findAllUsers();
+    User registerUser(RegistationRequest request);
+    public void sendEmailUser(User u, String code);
+    User validateToken(String code);
 }
