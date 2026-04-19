@@ -55,4 +55,8 @@ export class AIModelService {
     const url = `${this.apiURL}/prodsByName/${nom}`;
     return this.http.get<AIModel[]>(url);
   }
+
+  ajouterCategorie(cat: AICategory): Observable<AICategory> {
+    return this.http.post<AICategory>(this.apiURLCat, cat, httpOptions);
+  }
 }

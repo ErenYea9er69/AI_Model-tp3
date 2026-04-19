@@ -24,15 +24,13 @@ export class ListeOpenStates implements OnInit {
   chargerCategories() {
     this.aiModelService.listeCategories().subscribe(cats => {
       this.categories = cats._embedded.categories;
+      console.log(cats);
     });
   }
 
   catUpdated(cat: AICategory) {
-    console.log('Category updated event', cat);
-    // Note: Standard Spring Data REST or custom REST logic for categories CRUD is needed here
-    // For now, we update the local view or refresh if the service had methods.
-    // The user's tutorial focus is on Products, but let's keep the list functional.
-    this.chargerCategories();
+    console.log("Cat updated event", cat);
+    this.aiModelService.ajouterCategorie(cat).subscribe(() => this.chargerCategories());
     this.updatedCat = {idCat: 0, nomCat: ""};
     this.ajout = true;
   }

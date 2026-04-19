@@ -1,14 +1,15 @@
 <form>
-  <div class="form-group">
-    <label>Id Catégorie</label>
-    <input type="number" [(ngModel)]="category.idCat" name="idCat" class="form-control" readonly />
+  <div [hidden]="ajout" class="form-group">
+    <label>ID Catégorie</label>
+    <input type="text" [(ngModel)]="category.idCat" name="idCategorie" class="form-control w-25" readonly>
   </div>
   <div class="form-group">
     <label>Nom Catégorie</label>
-    <input type="text" [(ngModel)]="category.nomCat" name="nomCat" class="form-control" />
+    <input type="text" [(ngModel)]="category.nomCat" name="nomCategorie" class="form-control"
+      placeholder="Entrez un nom de catégorie...">
   </div>
   <div class="mt-2 text-center">
-    <button type="submit" (click)="saveCategory()" class="btn btn-success">
+    <button type="submit" [disabled]="!category.nomCat" (click)="saveCategory()" class="btn btn-success">
       {{ ajout ? 'Ajouter' : 'Modifier' }}
     </button>
   </div>
