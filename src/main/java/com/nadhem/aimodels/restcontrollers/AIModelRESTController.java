@@ -8,35 +8,35 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMethod;
-import com.nadhem.aimodels.entities.AIModel;
+import com.nadhem.aimodels.dto.AIModelDTO;
 import com.nadhem.aimodels.service.AIModelService;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin
+@CrossOrigin("*")
 public class AIModelRESTController {
 
     @Autowired
     AIModelService aiModelService;
 
     @RequestMapping(path = "all", method = RequestMethod.GET)
-    public List<AIModel> getAllAIModels() {
+    public List<AIModelDTO> getAllAIModels() {
         return aiModelService.getAllAIModels();
     }
 
     @RequestMapping(value = "/getbyid/{id}", method = RequestMethod.GET)
-    public AIModel getAIModelById(@PathVariable("id") Long id) {
+    public AIModelDTO getAIModelById(@PathVariable("id") Long id) {
         return aiModelService.getAIModel(id);
     }
 
     @RequestMapping(path = "/addprod", method = RequestMethod.POST)
-    public AIModel createAIModel(@RequestBody AIModel aiModel) {
-        return aiModelService.saveAIModel(aiModel);
+    public AIModelDTO createAIModel(@RequestBody AIModelDTO aiModelDTO) {
+        return aiModelService.saveAIModel(aiModelDTO);
     }
 
     @RequestMapping(path = "/updateprod", method = RequestMethod.PUT)
-    public AIModel updateAIModel(@RequestBody AIModel aiModel) {
-        return aiModelService.updateAIModel(aiModel);
+    public AIModelDTO updateAIModel(@RequestBody AIModelDTO aiModelDTO) {
+        return aiModelService.updateAIModel(aiModelDTO);
     }
 
     @RequestMapping(value = "/delprod/{id}", method = RequestMethod.DELETE)
@@ -45,12 +45,12 @@ public class AIModelRESTController {
     }
 
     @RequestMapping(value = "/prodscat/{idCat}", method = RequestMethod.GET)
-    public List<AIModel> getAIModelsByCatId(@PathVariable("idCat") Long idCat) {
+    public List<AIModelDTO> getAIModelsByCatId(@PathVariable("idCat") Long idCat) {
         return aiModelService.findByAICategoryIdCat(idCat);
     }
 
     @RequestMapping(value = "/prodsByName/{nom}", method = RequestMethod.GET)
-    public List<AIModel> findByNomAIContains(@PathVariable("nom") String nom) {
+    public List<AIModelDTO> findByNomAIContains(@PathVariable("nom") String nom) {
         return aiModelService.findByNomAIContains(nom);
     }
 }

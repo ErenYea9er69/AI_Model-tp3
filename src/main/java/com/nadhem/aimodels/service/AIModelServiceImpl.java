@@ -4,8 +4,12 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.stream.Collectors;
+import org.modelmapper.ModelMapper;
+import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import com.nadhem.aimodels.dto.AIModelDTO;
 import com.nadhem.aimodels.entities.AICategory;
 import com.nadhem.aimodels.entities.AIModel;
 import com.nadhem.aimodels.repos.AIModelRepository;
@@ -20,14 +24,17 @@ public class AIModelServiceImpl implements AIModelService {
     @Autowired
     ImageRepository imageRepository;
 
+    @Autowired
+    ModelMapper modelMapper;
+
     @Override
-    public AIModel saveAIModel(AIModel p) {
-        return aiModelRepository.save(p);
+    public AIModelDTO saveAIModel(AIModelDTO p) {
+        return convertEntityToDto(aiModelRepository.save(convertDtoToEntity(p)));
     }
 
     @Override
-    public AIModel updateAIModel(AIModel p) {
-        return aiModelRepository.save(p);
+    public AIModelDTO updateAIModel(AIModelDTO p) {
+        return convertEntityToDto(aiModelRepository.save(convertDtoToEntity(p)));
     }
 
     @Override
@@ -37,7 +44,7 @@ public class AIModelServiceImpl implements AIModelService {
 
     @Override
     public void deleteAIModelById(Long id) {
-        AIModel p = getAIModel(id);
+        AIModel p = aiModelRepository.findById(id).get();
         try {
             String imagePath = p.getImagePath();
             if (imagePath == null) imagePath = id + ".jpg";
@@ -49,47 +56,76 @@ public class AIModelServiceImpl implements AIModelService {
     }
 
     @Override
-    public AIModel getAIModel(Long id) {
-        return aiModelRepository.findById(id).get();
+    public AIModelDTO getAIModel(Long id) {
+        return convertEntityToDto(aiModelRepository.findById(id).get());
     }
 
     @Override
-    public List<AIModel> getAllAIModels() {
-        return aiModelRepository.findAll();
+    public List<AIModelDTO> getAllAIModels() {
+        return aiModelRepository.findAll().stream()
+                .map(this::convertEntityToDto)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public List<AIModel> findByNomAI(String nom) {
-        return aiModelRepository.findByNomAI(nom);
+    public List<AIModelDTO> findByNomAI(String nom) {
+        return aiModelRepository.findByNomAI(nom).stream()
+                .map(this::convertEntityToDto)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public List<AIModel> findByNomAIContains(String nom) {
-        return aiModelRepository.findByNomAIContains(nom);
+    public List<AIModelDTO> findByNomAIContains(String nom) {
+        return aiModelRepository.findByNomAIContains(nom).stream()
+                .map(this::convertEntityToDto)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public List<AIModel> findByNomPrix(String nom, Double prix) {
-        return aiModelRepository.findByNomPrix(nom, prix);
+    public List<AIModelDTO> findByNomPrix(String nom, Double prix) {
+        return aiModelRepository.findByNomPrix(nom, prix).stream()
+                .map(this::convertEntityToDto)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public List<AIModel> findByAICategory(AICategory category) {
-        return aiModelRepository.findByAICategory(category);
+    public List<AIModelDTO> findByAICategory(AICategory category) {
+        return aiModelRepository.findByAICategory(category).stream()
+                .map(this::convertEntityToDto)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public List<AIModel> findByAICategoryIdCat(Long id) {
-        return aiModelRepository.findByAICategoryIdCat(id);
+    public List<AIModelDTO> findByAICategoryIdCat(Long id) {
+        return aiModelRepository.findByAICategoryIdCat(id).stream()
+                .map(this::convertEntityToDto)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public List<AIModel> findByOrderByNomAIAsc() {
-        return aiModelRepository.findByOrderByNomAIAsc();
+    public List<AIModelDTO> findByOrderByNomAIAsc() {
+        return aiModelRepository.findByOrderByNomAIAsc().stream()
+                .map(this::convertEntityToDto)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public List<AIModel> trierAINomsPrix() {
-        return aiModelRepository.trierAINomsPrix();
+    public List<AIModelDTO> trierAINomsPrix() {
+        return aiModelRepository.trierAINomsPrix().stream()
+                .map(this::convertEntityToDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public AIModelDTO convertEntityToDto(AIModel model) {
+        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.LOOSE);
+        AIModelDTO modelDTO = modelMapper.map(model, AIModelDTO.class);
+        return modelDTO;
+    }
+
+    @Override
+    public AIModel convertDtoToEntity(AIModelDTO modelDto) {
+        AIModel model = modelMapper.map(modelDto, AIModel.class);
+        return model;
     }
 }
