@@ -12,21 +12,16 @@ import { AuthService } from './services/auth';
 export class App implements OnInit {
   protected readonly title = signal('AI Model Management System');
 
-  constructor(public authService: AuthService, private router : Router) {}
+  constructor(public authService: AuthService, private router: Router) {}
 
   onLogout() {
     this.authService.logout();
   }
 
   ngOnInit() {
-    let isloggedin: string;
-    let loggedUser: string;
-    isloggedin = localStorage.getItem('isloggedIn')!;
-    loggedUser = localStorage.getItem('loggedUser')!;
-    if (isloggedin != 'true' || !loggedUser) {
+    this.authService.loadToken();
+    if (this.authService.getToken() == null || this.authService.isTokenExpired()) {
       this.router.navigate(['/login']);
-    } else {
-      this.authService.setLoggedUserFromLocalStorage(loggedUser);
     }
   }
 }
