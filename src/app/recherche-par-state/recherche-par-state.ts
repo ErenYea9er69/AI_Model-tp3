@@ -21,7 +21,7 @@ export class RechercheParState implements OnInit {
 
   ngOnInit(): void {
     this.aiModelService.listeCategories().subscribe(cats => {
-      this.categories = cats._embedded.categories;
+      this.categories = cats;
     });
     this.aiModels = [];
   }

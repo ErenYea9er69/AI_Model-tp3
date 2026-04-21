@@ -13,7 +13,7 @@ import { environment } from '../../environments/environment';
 })
 export class AIModelService {
   apiURL: string = environment.apiURL;
-  apiURLCat: string = 'http://localhost:8080/aimodels/cat';
+  apiURLCat: string = 'http://localhost:8080/aimodels/api/cat';
 
   constructor(private http : HttpClient) { }
 
@@ -39,8 +39,8 @@ export class AIModelService {
     return this.http.put<AIModel>(this.apiURL + "/updateprod", model);
   }
 
-  listeCategories(): Observable<AICategoryWrapper> {
-    return this.http.get<AICategoryWrapper>(this.apiURLCat);
+  listeCategories(): Observable<AICategory[]> {
+    return this.http.get<AICategory[]>(this.apiURLCat);
   }
 
   rechercherParCategorie(idCat: number): Observable<AIModel[]> {

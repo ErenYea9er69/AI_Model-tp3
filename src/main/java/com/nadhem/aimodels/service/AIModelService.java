@@ -17,7 +17,7 @@ public interface AIModelService {
     List<AIModelDTO> findByNomAIContains(String nom);
     List<AIModelDTO> findByNomPrix(String nom, Double prix);
     List<AIModelDTO> findByAICategory(AICategory category);
-    List<AIModelDTO> findByAICategoryIdCat(Long id);
+    List<AIModelDTO> findByAiCategoryIdCat(Long id);
     List<AIModelDTO> findByOrderByNomAIAsc();
     List<AIModelDTO> trierAINomsPrix();
 

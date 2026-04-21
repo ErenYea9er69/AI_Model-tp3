@@ -83,7 +83,7 @@ class AIModelsApplicationTests {
 
     @Test
     public void testFindByAICategoryIdCat() {
-        List<AIModel> ais = aiModelRepository.findByAICategoryIdCat(1L);
+        List<AIModel> ais = aiModelRepository.findByAiCategoryIdCat(1L);
         for (AIModel ai : ais) {
             System.out.println(ai);
         }

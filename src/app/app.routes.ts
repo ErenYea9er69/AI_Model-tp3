@@ -21,7 +21,7 @@ export const routes: Routes = [
     {path: 'register', component: Register},
     {path: 'verifEmail', component: VerifEmail},
     {path: 'app-forbidden', component: Forbidden},
-    {path: "liste-openstates", component: ListeOpenStates, canActivate: [aimodelGuard]},
+    {path: "liste-categories", component: ListeOpenStates, canActivate: [aimodelGuard]},
 
     {path: "", redirectTo: "aiModels", pathMatch: "full"}
 ];

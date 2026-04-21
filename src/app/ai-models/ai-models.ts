@@ -3,11 +3,12 @@ import { AIModel } from '../model/ai.model';
 import { AIModelService } from '../services/ai';
 import { AuthService } from '../services/auth';
 import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-ai-models',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './ai-models.html',
 })
 export class AIModels implements OnInit {

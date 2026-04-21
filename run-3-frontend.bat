@@ -1,0 +1,3 @@
+@echo off
+echo Starting Angular Frontend (Port 4200)...
+npm start

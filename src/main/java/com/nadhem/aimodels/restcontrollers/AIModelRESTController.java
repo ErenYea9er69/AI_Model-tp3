@@ -46,7 +46,7 @@ public class AIModelRESTController {
 
     @RequestMapping(value = "/prodscat/{idCat}", method = RequestMethod.GET)
     public List<AIModelDTO> getAIModelsByCatId(@PathVariable("idCat") Long idCat) {
-        return aiModelService.findByAICategoryIdCat(idCat);
+        return aiModelService.findByAiCategoryIdCat(idCat);
     }
 
     @RequestMapping(value = "/prodsByName/{nom}", method = RequestMethod.GET)

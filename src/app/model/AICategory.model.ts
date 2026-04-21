@@ -1,4 +1,4 @@
 export class AICategory {
-    idCat! : number;
+    idCat! : number; 
     nomCat! : string;
 }

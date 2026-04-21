@@ -20,7 +20,7 @@ public interface AIModelRepository extends JpaRepository<AIModel, Long> {
     @Query("select p from AIModel p where p.aiCategory = ?1")
     List<AIModel> findByAICategory(AICategory category);
 
-    List<AIModel> findByAICategoryIdCat(Long id);
+    List<AIModel> findByAiCategoryIdCat(Long id);
 
     List<AIModel> findByOrderByNomAIAsc();
 

@@ -96,8 +96,8 @@ public class AIModelServiceImpl implements AIModelService {
     }
 
     @Override
-    public List<AIModelDTO> findByAICategoryIdCat(Long id) {
-        return aiModelRepository.findByAICategoryIdCat(id).stream()
+    public List<AIModelDTO> findByAiCategoryIdCat(Long id) {
+        return aiModelRepository.findByAiCategoryIdCat(id).stream()
                 .map(this::convertEntityToDto)
                 .collect(Collectors.toList());
     }

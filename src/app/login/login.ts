@@ -22,9 +22,10 @@ export class Login implements OnInit {
 
   onLoggedin() {
     this.authService.login(this.user).subscribe({
-      next: (data) => {
+      next: (data: any) => {
         let jwToken = data.headers.get('Authorization')!;
-        this.authService.saveToken(jwToken);
+        let cleanToken = jwToken.replace('Bearer ', '');
+        this.authService.saveToken(cleanToken);
         this.router.navigate(['/']);
       },
       error: (err: any) => {

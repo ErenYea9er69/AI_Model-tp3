@@ -1,3 +1,8 @@
+package com.nadhem.users.service;
+
+import java.util.List;
+import com.nadhem.users.entities.Role;
+import com.nadhem.users.entities.User;
 import com.nadhem.users.register.RegistationRequest;
 
 public interface UserService {

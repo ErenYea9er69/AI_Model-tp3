@@ -22,14 +22,19 @@ public class UsersMicroserviceApplication {
 
     @PostConstruct
     void init_users() {
+        // Only seed data if users don't already exist
+        if (userService.findUserByUsername("admin") != null) {
+            return; // Data already seeded
+        }
+
         // Ajouter les rôles
         userService.addRole(new Role(null, "ADMIN"));
         userService.addRole(new Role(null, "USER"));
 
         // Ajouter les users
-        userService.saveUser(new User(null, "admin", "123", true, null));
-        userService.saveUser(new User(null, "nadhem", "123", true, null));
-        userService.saveUser(new User(null, "yassine", "123", true, null));
+        userService.saveUser(new User(null, "admin", "123", "admin@email.com", true, null));
+        userService.saveUser(new User(null, "nadhem", "123", "nadhem@email.com", true, null));
+        userService.saveUser(new User(null, "yassine", "123", "yassine@email.com", true, null));
 
         // Ajouter les rôles aux users
         userService.addRoleToUser("admin", "ADMIN");

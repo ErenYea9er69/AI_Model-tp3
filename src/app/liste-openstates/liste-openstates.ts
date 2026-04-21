@@ -23,7 +23,7 @@ export class ListeOpenStates implements OnInit {
 
   chargerCategories() {
     this.aiModelService.listeCategories().subscribe(cats => {
-      this.categories = cats._embedded.categories;
+      this.categories = cats;
       console.log(cats);
     });
   }

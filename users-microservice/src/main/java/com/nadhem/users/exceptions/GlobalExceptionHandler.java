@@ -36,6 +36,9 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorDetails> handleGlobalException(Exception exception, WebRequest webRequest) {
+        System.err.println("========== REGISTRATION ERROR ==========");
+        exception.printStackTrace();
+        System.err.println("========================================");
         ErrorDetails errorDetails = new ErrorDetails(LocalDateTime.now(), exception.getMessage(),
                 webRequest.getDescription(false), "INTERNAL_SERVER_ERROR");
         return new ResponseEntity<>(errorDetails, HttpStatus.INTERNAL_SERVER_ERROR);

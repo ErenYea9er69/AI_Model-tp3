@@ -30,7 +30,7 @@ export class UpdateAIModel implements OnInit {
 
   ngOnInit(): void {
     this.aiModelService.listeCategories().subscribe(cats => {
-      this.categories = cats._embedded.categories;
+      this.categories = cats;
     });
 
     this.aiModelService.consulterAIModel(this.activatedRoute.snapshot.params['id']).subscribe(prod => {
