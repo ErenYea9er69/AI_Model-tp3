@@ -1,12 +1,12 @@
-import { AICategory } from "./AICategory.model";
+import { AITheme } from "./AITheme.model";
 import { Image } from "./image.model";
 
-export class AIModel {
-    idAI! : number;
-    nomAI! : string;
-    prixAI! : number;
+export class AIWrapper {
+    idWrapper! : number;
+    nomWrapper! : string;
+    prixWrapper! : number;
     dateCreation! : Date ;
-    aiCategory! : AICategory;
+    aiTheme! : AITheme;
     image! : Image;
     imageStr!: string;
     images!: Image[];

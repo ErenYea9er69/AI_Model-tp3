@@ -1,0 +1,37 @@
+<div class="container">
+    <div class="card shadow mb-4">
+        <div class="card-body">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Nom</th>
+                        <th>Prix</th>
+                        <th>Date Création</th>
+                        <th>Thème</th>
+                        <th>Image</th>
+                        <th *ngIf="authService.isAdmin()">Actions</th>
+                    </tr>
+                </thead>
+                <tbody *ngFor="let aiWrapper of aiWrappers">
+                    <tr>
+                        <td>{{ aiWrapper.idWrapper }}</td>
+                        <td>{{ aiWrapper.nomWrapper }}</td>
+                        <td>{{ aiWrapper.prixWrapper }}</td>
+                        <td>{{ aiWrapper.dateCreation | date: "dd/MM/yyyy" }}</td>
+                        <td>{{ aiWrapper.aiTheme?.nomTheme }}</td>
+                        <td>
+                            <img class="card-img-top img-responsive"
+                                [src]="apiURL + '/image/loadfromFS/' + aiWrapper.idWrapper"
+                                style="height :50px;width:100px">
+                        </td>
+                        <td *ngIf="authService.isAdmin()">
+                            <a class="btn btn-danger" (click)="supprimerAIWrapper(aiWrapper)">Supprimer</a>
+                            <a class="btn btn-success" [routerLink]="['/updateAIWrapper', aiWrapper.idWrapper]">Modifier</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

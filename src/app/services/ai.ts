@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { AIModel } from '../model/ai.model';
-import { AICategory } from "../model/AICategory.model";
-import { AICategoryWrapper } from '../model/AICategoryWrapper.model';
+import { AIWrapper } from '../model/ai.model';
+import { AITheme } from "../model/AITheme.model";
+import { AIThemeWrapper } from '../model/AIThemeWrapper.model';
 import { Image } from '../model/image.model';
 
 import { environment } from '../../environments/environment';
@@ -11,50 +11,50 @@ import { environment } from '../../environments/environment';
 @Injectable({
   providedIn: 'root',
 })
-export class AIModelService {
+export class AIWrapperService {
   apiURL: string = environment.apiURL;
-  apiURLCat: string = 'http://localhost:8080/aimodels/api/cat';
+  apiURLCat: string = 'http://localhost:8080/aiwrappers/api/cat';
 
   constructor(private http : HttpClient) { }
 
-  listeAIModels(): Observable<AIModel[]> {
-    return this.http.get<AIModel[]>(this.apiURL + "/all");
+  listeAIWrappers(): Observable<AIWrapper[]> {
+    return this.http.get<AIWrapper[]>(this.apiURL + "/all");
   }
 
-  ajouterAIModel(model: AIModel): Observable<AIModel> {
-    return this.http.post<AIModel>(this.apiURL + "/addprod", model);
+  ajouterAIWrapper(model: AIWrapper): Observable<AIWrapper> {
+    return this.http.post<AIWrapper>(this.apiURL + "/addprod", model);
   }
 
-  supprimerAIModel(id: number) {
+  supprimerAIWrapper(id: number) {
     const url = `${this.apiURL}/delprod/${id}`;
     return this.http.delete(url);
   }
 
-  consulterAIModel(id: number): Observable<AIModel> {
+  consulterAIWrapper(id: number): Observable<AIWrapper> {
     const url = `${this.apiURL}/getbyid/${id}`;
-    return this.http.get<AIModel>(url);
+    return this.http.get<AIWrapper>(url);
   }
 
-  updateAIModel(model: AIModel): Observable<AIModel> {
-    return this.http.put<AIModel>(this.apiURL + "/updateprod", model);
+  updateAIWrapper(model: AIWrapper): Observable<AIWrapper> {
+    return this.http.put<AIWrapper>(this.apiURL + "/updateprod", model);
   }
 
-  listeCategories(): Observable<AICategory[]> {
-    return this.http.get<AICategory[]>(this.apiURLCat);
+  listeThemes(): Observable<AITheme[]> {
+    return this.http.get<AITheme[]>(this.apiURLCat);
   }
 
-  rechercherParCategorie(idCat: number): Observable<AIModel[]> {
-    const url = `${this.apiURL}/prodscat/${idCat}`;
-    return this.http.get<AIModel[]>(url);
+  rechercherParTheme(idTheme: number): Observable<AIWrapper[]> {
+    const url = `${this.apiURL}/prodscat/${idTheme}`;
+    return this.http.get<AIWrapper[]>(url);
   }
 
-  rechercherParNom(nom: string): Observable<AIModel[]> {
+  rechercherParNom(nom: string): Observable<AIWrapper[]> {
     const url = `${this.apiURL}/prodsByName/${nom}`;
-    return this.http.get<AIModel[]>(url);
+    return this.http.get<AIWrapper[]>(url);
   }
 
-  ajouterCategorie(cat: AICategory): Observable<AICategory> {
-    return this.http.post<AICategory>(this.apiURLCat, cat);
+  ajouterTheme(cat: AITheme): Observable<AITheme> {
+    return this.http.post<AITheme>(this.apiURLCat, cat);
   }
 
   uploadImage(file: File, filename: string): Observable<Image> {

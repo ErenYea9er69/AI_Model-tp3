@@ -1,8 +1,8 @@
 <div class="container">
   <div class="col-sm-4 col-md-4 col-lg-4 mb-4">
     <app-update-openstate 
-      [category]="updatedCat" 
-      (categoryUpdated)="catUpdated($event)" 
+      [theme]="updatedCat" 
+      (themeUpdated)="catUpdated($event)" 
       [ajout]="ajout">
     </app-update-openstate>
   </div>
@@ -18,10 +18,10 @@
           </tr>
         </thead>
         <tbody>
-          @for(cat of categories; track cat.idCat) {
+          @for(cat of themes; track cat.idTheme) {
           <tr>
-            <td>{{cat.idCat}}</td>
-            <td>{{cat.nomCat}}</td>
+            <td>{{cat.idTheme}}</td>
+            <td>{{cat.nomTheme}}</td>
             <td><a class="btn btn-success" (click)="updateCat(cat)">Editer</a></td>
           </tr>
           }

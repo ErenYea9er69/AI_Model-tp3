@@ -10,7 +10,7 @@ import { AuthService } from './services/auth';
   styleUrl: './app.css',
 })
 export class App implements OnInit {
-  protected readonly title = signal('AI Model Management System');
+  protected readonly title = signal('AI Wrapper Management System');
 
   constructor(public authService: AuthService, private router: Router) {}
 

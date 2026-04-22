@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { AICategory } from '../model/AICategory.model';
+import { AITheme } from '../model/AITheme.model';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
@@ -10,15 +10,16 @@ import { CommonModule } from '@angular/common';
   templateUrl: './update-openstate.html',
 })
 export class UpdateOpenState implements OnInit {
-  @Input() category!: AICategory;
+  @Input() theme!: AITheme;
   @Input() ajout!: boolean;
-  @Output() categoryUpdated = new EventEmitter<AICategory>();
+  @Output() themeUpdated = new EventEmitter<AITheme>();
 
   ngOnInit(): void {
-    console.log('ngOnInit du composant UpdateOpenState', this.category, 'ajout=', this.ajout);
+    console.log('ngOnInit du composant UpdateOpenState', this.theme, 'ajout=', this.ajout);
   }
 
-  saveCategory() {
-    this.categoryUpdated.emit(this.category);
+  saveTheme() {
+    this.themeUpdated.emit(this.theme);
+    
   }
 }

@@ -18,10 +18,12 @@ export const tokenInterceptor: HttpInterceptorFn = (req, next) => {
 
     if (!toExclude(req.url)) {
         let jwt = authService.getToken();
-        let reqWithToken = req.clone({
-            setHeaders: { Authorization: "Bearer " + jwt }
-        });
-        return next(reqWithToken);
+        if (jwt && jwt.trim() !== "") {
+            let reqWithToken = req.clone({
+                setHeaders: { Authorization: "Bearer " + jwt.trim() }
+            });
+            return next(reqWithToken);
+        }
     }
     return next(req);
 };

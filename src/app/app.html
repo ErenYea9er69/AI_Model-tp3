@@ -8,7 +8,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" routerLink="/aiModels">Home</a>
+                    <a class="nav-link active" aria-current="page" routerLink="/aiWrappers">Home</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
@@ -17,14 +17,14 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         @if(authService.isAdmin()) {
-                        <li><a class="dropdown-item" routerLink="/add-ai-model">Ajouter</a></li>
+                        <li><a class="dropdown-item" routerLink="/add-ai-wrapper">Ajouter</a></li>
                         }
-                        <li><a class="dropdown-item" routerLink="/aiModels">Lister</a></li>
-                        <li><a class="dropdown-item" routerLink="/rechercheParCategorie">Recherche Par Catégorie</a>
+                        <li><a class="dropdown-item" routerLink="/aiWrappers">Lister</a></li>
+                        <li><a class="dropdown-item" routerLink="/rechercheParTheme">Recherche Par Catégorie</a>
                         </li>
                         <li><a class="dropdown-item" routerLink="/rechercheParNom">Recherche Par Nom</a></li>
                         @if(authService.isAdmin()) {
-                        <li><a class="dropdown-item" routerLink="/liste-categories">Gérer Catégories</a></li>
+                        <li><a class="dropdown-item" routerLink="/liste-themes">Gérer Catégories</a></li>
                         }
                     </ul>
                 </li>

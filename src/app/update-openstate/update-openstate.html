@@ -1,15 +1,15 @@
 <form>
   <div [hidden]="ajout" class="form-group">
     <label>ID Catégorie</label>
-    <input type="text" [(ngModel)]="category.idCat" name="idCategorie" class="form-control w-25" readonly>
+    <input type="text" [(ngModel)]="theme.idTheme" name="idThemeegorie" class="form-control w-25" readonly>
   </div>
   <div class="form-group">
     <label>Nom Catégorie</label>
-    <input type="text" [(ngModel)]="category.nomCat" name="nomCategorie" class="form-control"
+    <input type="text" [(ngModel)]="theme.nomTheme" name="nomThemeegorie" class="form-control"
       placeholder="Entrez un nom de catégorie...">
   </div>
   <div class="mt-2 text-center">
-    <button type="submit" [disabled]="!category.nomCat" (click)="saveCategory()" class="btn btn-success">
+    <button type="submit" [disabled]="!theme.nomTheme" (click)="saveTheme()" class="btn btn-success">
       {{ ajout ? 'Ajouter' : 'Modifier' }}
     </button>
   </div>

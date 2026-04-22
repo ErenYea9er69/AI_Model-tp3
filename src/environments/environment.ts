@@ -1,3 +1,3 @@
 export const environment = {
-  apiURL: 'http://localhost:8080/aimodels/api'
+  apiURL: 'http://localhost:8080/aiwrappers/api'
 };

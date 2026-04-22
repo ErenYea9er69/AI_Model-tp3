@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { AIModel } from '../model/ai.model';
-import { AICategory } from '../model/AICategory.model';
-import { AIModelService } from '../services/ai';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { AIWrapper } from '../model/ai.model';
+import { AITheme } from '../model/AITheme.model';
+import { AIWrapperService } from '../services/ai';
+import { AuthService } from '../services/auth';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
@@ -13,29 +14,32 @@ import { RouterLink } from '@angular/router';
   templateUrl: './recherche-par-state.html',
 })
 export class RechercheParState implements OnInit {
-  aiModels! : AIModel[];
-  categories! : AICategory[];
-  idCat! : number;
+  aiWrappers! : AIWrapper[];
+  themes! : AITheme[];
+  idTheme! : number;
+  apiURL: string = 'http://localhost:8080/aiwrappers/api';
 
-  constructor(private aiModelService : AIModelService) { }
+  constructor(private aiWrapperService : AIWrapperService, public authService: AuthService, private cd: ChangeDetectorRef) { }
 
   ngOnInit(): void {
-    this.aiModelService.listeCategories().subscribe(cats => {
-      this.categories = cats;
+    this.aiWrapperService.listeThemes().subscribe(cats => {
+      this.themes = cats;
+      this.cd.detectChanges();
     });
-    this.aiModels = [];
+    this.aiWrappers = [];
   }
 
   onChange() {
-    this.aiModelService.rechercherParCategorie(this.idCat).subscribe(prods => {
-      this.aiModels = prods;
+    this.aiWrapperService.rechercherParTheme(this.idTheme).subscribe(prods => {
+      this.aiWrappers = prods;
+      this.cd.detectChanges();
     });
   }
 
-  supprimerAIModel(model: AIModel) {
+  supprimerAIWrapper(model: AIWrapper) {
     let conf = confirm('Etes-vous sûr ?');
     if (conf) {
-      this.aiModelService.supprimerAIModel(model.idAI!).subscribe(() => {
+      this.aiWrapperService.supprimerAIWrapper(model.idWrapper!).subscribe(() => {
         this.onChange();
       });
     }

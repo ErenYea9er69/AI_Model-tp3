@@ -24,7 +24,7 @@ export class Login implements OnInit {
     this.authService.login(this.user).subscribe({
       next: (data: any) => {
         let jwToken = data.headers.get('Authorization')!;
-        let cleanToken = jwToken.replace('Bearer ', '');
+        let cleanToken = jwToken.replace('Bearer ', '').trim();
         this.authService.saveToken(cleanToken);
         this.router.navigate(['/']);
       },

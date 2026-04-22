@@ -1,9 +1,9 @@
 <div class="container">
   <div class="col-sm-4 col-md-4 col-lg-4 mb-2 mt-2">
     <label>Catégorie</label>
-    <select class="form-control form-control-lg" id="idCat" name="idCat" [(ngModel)]="idCat" (change)="onChange()">
-      @for (cat of categories; track cat.idCat) {
-      <option [value]="cat.idCat">{{ cat.nomCat }}</option>
+    <select class="form-control form-control-lg" id="idTheme" name="idTheme" [(ngModel)]="idTheme" (change)="onChange()">
+      @for (cat of themes; track cat.idTheme) {
+      <option [value]="cat.idTheme">{{ cat.nomTheme }}</option>
       }
     </select>
   </div>
@@ -17,22 +17,32 @@
             <th>Nom</th>
             <th>Prix</th>
             <th>Date Création</th>
-            <th>Catégorie</th>
-            <th>Actions</th>
+            <th>Thème</th>
+            <th>Image</th>
+            @if (authService.isAdmin()) {
+              <th>Actions</th>
+            }
           </tr>
         </thead>
         <tbody>
-          @for (model of aiModels; track model.idAI) {
+          @for (model of aiWrappers; track model.idWrapper) {
           <tr>
-            <td>{{ model.idAI }}</td>
-            <td>{{ model.nomAI }}</td>
-            <td>{{ model.prixAI }}</td>
+            <td>{{ model.idWrapper }}</td>
+            <td>{{ model.nomWrapper }}</td>
+            <td>{{ model.prixWrapper }}</td>
             <td>{{ model.dateCreation | date:'dd/MM/yyyy' }}</td>
-            <td>{{ model.aiCategory?.nomCat }}</td>
+            <td>{{ model.aiTheme?.nomTheme }}</td>
             <td>
-              <a class="btn btn-danger" (click)="supprimerAIModel(model)">Supprimer</a>
-              <a class="btn btn-success" [routerLink]="['/updateAIModel', model.idAI]">Modifier</a>
+              <img class="card-img-top img-responsive"
+                   [src]="apiURL + '/image/loadfromFS/' + model.idWrapper"
+                   style="height: 50px; width: 100px">
             </td>
+            @if (authService.isAdmin()) {
+              <td>
+                <a class="btn btn-danger" (click)="supprimerAIWrapper(model)">Supprimer</a>
+                <a class="btn btn-success" [routerLink]="['/updateAIWrapper', model.idWrapper]">Modifier</a>
+              </td>
+            }
           </tr>
           }
         </tbody>

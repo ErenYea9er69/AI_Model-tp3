@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { AICategory } from '../model/AICategory.model';
-import { AIModelService } from '../services/ai';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { AITheme } from '../model/AITheme.model';
+import { AIWrapperService } from '../services/ai';
 import { UpdateOpenState } from '../update-openstate/update-openstate';
 import { CommonModule } from '@angular/common';
 
@@ -11,31 +11,32 @@ import { CommonModule } from '@angular/common';
   templateUrl: './liste-openstates.html',
 })
 export class ListeOpenStates implements OnInit {
-  categories!: AICategory[];
-  updatedCat: AICategory = {idCat: 0, nomCat: ""};
+  themes!: AITheme[];
+  updatedCat: AITheme = {idTheme: 0, nomTheme: ""};
   ajout: boolean = true;
 
-  constructor(private aiModelService: AIModelService) {}
+  constructor(private aiWrapperService: AIWrapperService, private cd: ChangeDetectorRef) {}
 
   ngOnInit(): void {
-    this.chargerCategories();
+    this.chargerThemes();
   }
 
-  chargerCategories() {
-    this.aiModelService.listeCategories().subscribe(cats => {
-      this.categories = cats;
+  chargerThemes() {
+    this.aiWrapperService.listeThemes().subscribe(cats => {
+      this.themes = cats;
       console.log(cats);
+      this.cd.detectChanges();
     });
   }
 
-  catUpdated(cat: AICategory) {
+  catUpdated(cat: AITheme) {
     console.log("Cat updated event", cat);
-    this.aiModelService.ajouterCategorie(cat).subscribe(() => this.chargerCategories());
-    this.updatedCat = {idCat: 0, nomCat: ""};
+    this.aiWrapperService.ajouterTheme(cat).subscribe(() => this.chargerThemes());
+    this.updatedCat = {idTheme: 0, nomTheme: ""};
     this.ajout = true;
   }
 
-  updateCat(cat: AICategory) {
+  updateCat(cat: AITheme) {
     this.updatedCat = cat;
     this.ajout = false;
   }

@@ -1,0 +1,109 @@
+<div class="container">
+    <div>
+        <h2>Modifier un Modèle IA :</h2>
+    </div>
+    <form #wrapperForm="ngForm">
+        <div class="col-sm-2 col-md-2 col-lg-2">
+            <label>Id Modèle</label>
+            <input readonly type="number" [(ngModel)]="currentAIWrapper.idWrapper" name="idWrapper" class="form-control" />
+        </div>
+        <div class="col-sm-4 col-md-4 col-lg-4 mt-2">
+            <label>Nom Modèle</label>
+            <input type="text" [(ngModel)]="currentAIWrapper.nomWrapper" name="nomWrapper" class="form-control" required minlength="5" #nomWrapper="ngModel" />
+            @if (nomWrapper.invalid && (nomWrapper.dirty || nomWrapper.touched)) {
+                <div class="text-danger mt-1">
+                    @if (nomWrapper.errors?.['required']) { <small>Ce champ est obligatoire.</small> }
+                    @if (nomWrapper.errors?.['minlength']) { <small>Le nom doit contenir au moins 5 caractères.</small> }
+                </div>
+            }
+        </div>
+        <div class="col-sm-2 col-md-2 col-lg-2 mt-2">
+            <label>Prix</label>
+            <input type="number" [(ngModel)]="currentAIWrapper.prixWrapper" name="prixWrapper" class="form-control" required min="0" #prixWrapper="ngModel" />
+            @if (prixWrapper.invalid && (prixWrapper.dirty || prixWrapper.touched)) {
+                <div class="text-danger mt-1">
+                    @if (prixWrapper.errors?.['required']) { <small>Ce champ est obligatoire.</small> }
+                    @if (prixWrapper.errors?.['min']) { <small>Le prix doit être positif.</small> }
+                </div>
+            }
+        </div>
+        <div class="col-sm-4 col-md-4 col-lg-4 mt-2">
+            <label>Date Création</label>
+            <input type="date" [ngModel]="currentAIWrapper.dateCreation | date: 'yyyy-MM-dd'"
+                (ngModelChange)="currentAIWrapper.dateCreation = $event" name="dateCreation" class="form-control" required #dateCreation="ngModel" />
+            @if (dateCreation.invalid && (dateCreation.dirty || dateCreation.touched)) {
+                <div class="text-danger mt-1">
+                    <small>Ce champ est obligatoire.</small>
+                </div>
+            }
+        </div>
+
+        <div class="col-sm-4 col-md-4 col-lg-4 mt-2">
+            <label>Thème</label>
+            <select class="form-control form-control-lg" id="idTheme" name="idTheme" [(ngModel)]="updatedCatId" required #idTheme="ngModel">
+                @for(cat of themes; track cat.idTheme){
+                <option [value]="cat.idTheme">{{ cat.nomTheme }}</option>
+                }
+            </select>
+            @if (idTheme.invalid && (idTheme.dirty || idTheme.touched)) {
+                <div class="text-danger mt-1">
+                    <small>Veuillez sélectionner un thème.</small>
+                </div>
+            }
+        </div>
+
+        <!-- Current image from filesystem -->
+        <div class="col-sm-12 col-md-12 col-lg-12 mt-3" *ngIf="currentAIWrapper.idWrapper">
+            <label class="mb-2">Image actuelle :</label>
+            <div>
+                <img class="img-responsive" 
+                    [src]="myImage || (apiURL + '/image/loadfromFS/' + currentAIWrapper.idWrapper)"
+                    style="height:100px;width:200px"
+                    onerror="this.style.display='none'">
+            </div>
+        </div>
+
+        <div class="col-sm-12 col-md-12 col-lg-12 mt-2">
+            <label class="mb-2">Changer l'image :</label>
+            <input type="file" (change)="onImageUpload($event)" class="form-control">
+        </div>
+
+        <div class="mt-4">
+            <button type="submit" (click)="updateAIWrapper()" class="btn btn-primary" [disabled]="wrapperForm.invalid">Modifier le Modèle</button>
+        </div>
+
+        <!-- DB Image Gallery (secondary) -->
+        <div class="card shadow mb-4 mt-3" *ngIf="currentAIWrapper.images && currentAIWrapper.images.length > 0">
+            <div class="card-header">Images supplémentaires (base de données)</div>
+            <div class="card-body">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Images</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for(img of currentAIWrapper.images; track img.idImage) {
+                        <tr>
+                            <td>
+                                <img class="card-img-top img-responsive"
+                                    src="{{'data:' + img.type + ';base64,' + img.image}}"
+                                    style="height :50px;width:100px">
+                            </td>
+                            <td style="width:20%">
+                                <a class="btn btn-danger" (click)="supprimerImage(img)">Supprimer</a>
+                            </td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Add to DB gallery -->
+        <div class="mt-2">
+            <button type="button" (click)="onAddImageAIWrapper()" class="btn btn-success btn-sm">Ajouter Image (galerie DB)</button>
+        </div>
+    </form>
+</div>

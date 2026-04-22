@@ -1,0 +1,72 @@
+<div class="container">
+    <div>
+        <h2>Ajouter un Modèle IA :</h2>
+    </div>
+    <form #wrapperForm="ngForm">
+        <div class="col-sm-2 col-md-2 col-lg-2">
+            <label>Id Modèle</label>
+            <input type="number" [(ngModel)]="newAIWrapper.idWrapper" name="idWrapper" class="form-control" />
+        </div>
+        <div class="col-sm-4 col-md-4 col-lg-4">
+            <label>Nom Modèle</label>
+            <input type="text" [(ngModel)]="newAIWrapper.nomWrapper" name="nomWrapper" class="form-control" required minlength="5" #nomWrapper="ngModel" />
+            @if (nomWrapper.invalid && (nomWrapper.dirty || nomWrapper.touched)) {
+                <div class="text-danger mt-1">
+                    @if (nomWrapper.errors?.['required']) { <small>Ce champ est obligatoire.</small> }
+                    @if (nomWrapper.errors?.['minlength']) { <small>Le nom doit contenir au moins 5 caractères.</small> }
+                </div>
+            }
+        </div>
+        <div class="col-sm-2 col-md-2 col-lg-2 mt-2">
+            <label>Prix</label>
+            <input type="number" [(ngModel)]="newAIWrapper.prixWrapper" name="prixWrapper" class="form-control" required min="0" #prixWrapper="ngModel" />
+            @if (prixWrapper.invalid && (prixWrapper.dirty || prixWrapper.touched)) {
+                <div class="text-danger mt-1">
+                    @if (prixWrapper.errors?.['required']) { <small>Ce champ est obligatoire.</small> }
+                    @if (prixWrapper.errors?.['min']) { <small>Le prix doit être positif.</small> }
+                </div>
+            }
+        </div>
+        <div class="col-sm-4 col-md-4 col-lg-4 mt-2">
+            <label>Date Création</label>
+            <input type="date" [(ngModel)]="newAIWrapper.dateCreation" name="dateCreation" class="form-control" required #dateCreation="ngModel" />
+            @if (dateCreation.invalid && (dateCreation.dirty || dateCreation.touched)) {
+                <div class="text-danger mt-1">
+                    <small>Ce champ est obligatoire.</small>
+                </div>
+            }
+        </div>
+
+        <div class="col-sm-4 col-md-4 col-lg-4 mt-2">
+            <label>Thème</label>
+            <select class="form-control form-control-lg" id="idTheme" name="idTheme" [(ngModel)]="newIdCat" required #idTheme="ngModel">
+                @for(cat of themes; track cat.idTheme){
+                <option [value]="cat.idTheme">{{ cat.nomTheme }}</option>
+                }
+            </select>
+            @if (idTheme.invalid && (idTheme.dirty || idTheme.touched)) {
+                <div class="text-danger mt-1">
+                    <small>Veuillez sélectionner un thème.</small>
+                </div>
+            }
+        </div>
+
+        <div class="col-sm-12 col-md-12 col-lg-12 mt-3">
+            <label class="mb-2">Image :</label>
+            <input type="file" (change)="onImageUpload($event)" name="logo" class="form-control" required>
+            @if (!uploadedImage) {
+                <div class="text-danger mt-1">
+                    <small>Veuillez télécharger une image.</small>
+                </div>
+            }
+        </div>
+
+        <div class="col-sm-12 col-md-12 col-lg-12 mt-2">
+            <img [src]="imagePath" class="card-img-top img-fluid rounded-start" style="width: 500px; height: 300px" />
+        </div>
+
+        <div class="mt-3 mb-5">
+            <button type="submit" (click)="addAIWrapper()" class="btn btn-success" [disabled]="wrapperForm.invalid || !uploadedImage">Ajouter</button>
+        </div>
+    </form>
+</div>

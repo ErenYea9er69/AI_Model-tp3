@@ -3,7 +3,7 @@
   <form class="form-inline mt-2">
     <div class="form-group mx-sm-3 mb-2">
       <label>Nom Produit</label>
-      <input type="text" class="form-control" [(ngModel)]="nomAI" name="nomAI" />
+      <input type="text" class="form-control" [(ngModel)]="nomWrapper" name="nomWrapper" />
       <button type="submit" (click)="rechercherProds()" class="btn btn-primary mb-2 ml-2">Rechercher</button>
     </div>
   </form>
@@ -37,20 +37,20 @@
             <th>Nom</th>
             <th>Prix</th>
             <th>Date Création</th>
-            <th>Catégorie</th>
+            <th>Thème</th>
           </tr>
         </thead>
         <tbody>
-          @for (model of aiModels | searchFilter: searchTerm; track model.idAI) {
+          @for (model of aiWrappers | searchFilter: searchTerm; track model.idWrapper) {
           <tr>
-            <td>{{ model.idAI }}</td>
-            <td>{{ model.nomAI }}</td>
-            <td>{{ model.prixAI }}</td>
+            <td>{{ model.idWrapper }}</td>
+            <td>{{ model.nomWrapper }}</td>
+            <td>{{ model.prixWrapper }}</td>
             <td>{{ model.dateCreation | date:'dd/MM/yyyy' }}</td>
-            <td>{{ model.aiCategory?.nomCat }}</td>
+            <td>{{ model.aiTheme?.nomTheme }}</td>
             <!--
-            <td><a class="btn btn-danger" (click)="supprimerAIModel(model)">Supprimer</a></td>
-            <td><a class="btn btn-success" [routerLink]="['/updateAIModel', model.idAI]">Modifier</a></td>
+            <td><a class="btn btn-danger" (click)="supprimerAIWrapper(model)">Supprimer</a></td>
+            <td><a class="btn btn-success" [routerLink]="['/updateAIWrapper', model.idWrapper]">Modifier</a></td>
             -->
           </tr>
           }
