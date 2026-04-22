@@ -81,7 +81,7 @@ public class UserServiceImpl implements UserService {
         newUser.setUsername(request.getUsername());
         newUser.setEmail(request.getEmail());
         newUser.setPassword(bCryptPasswordEncoder.encode(request.getPassword()));
-        newUser.setEnabled(true); // Enabled immediately to skip email verification
+        newUser.setEnabled(false); // User is disabled until email is verified
         userRep.save(newUser);
 
         // ajouter à newUser le role par défaut USER
@@ -106,7 +106,7 @@ public class UserServiceImpl implements UserService {
         verificationTokenRepo.save(token);
 
         // envoyer par email pour valider l'email de l'utilisateur
-        // sendEmailUser(newUser, token.getToken()); // Temporarily disabled to prevent crash
+        sendEmailUser(newUser, token.getToken());
 
         return newUser;
     }
