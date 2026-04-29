@@ -32,7 +32,7 @@ public class SecurityConfig {
                 }
             }))
             .authorizeHttpRequests(requests -> requests
-                .requestMatchers("/api/image/**", "/error").permitAll()
+                .requestMatchers("/api/image/**", "/api/all", "/api/cat/**", "/error").permitAll()
                 .anyRequest().authenticated()
             )
             .addFilterBefore(new JWTAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
